@@ -1,25 +1,263 @@
-# Language-translator
+# 🌍 A'chik Garo Language Platform
 
-A local translator website for Garo, English, and Hindi.
+A comprehensive, production-ready semantic translation and learning platform for the A'chik Garo language of Meghalaya, India.
 
-This project includes:
-- a React frontend with live text translation
-- a local dictionary and sentence engine in `src/translator.js`
-- support for English ↔ Garo, Hindi ↔ Garo, and English ↔ Hindi via Garo
-- auto-detection for Latin-based English/Garo and Devanagari Hindi
+## 🎯 Features
 
-## Run locally
+### 💬 Real-Time Semantic Translation
+- **Live Translation Engine**: Translates between English ↔ Garo ↔ Hindi
+- **Grammar Analysis**: Automatically detects and explains grammatical structures
+- **Morphology Parsing**: Identifies verb roots, tenses, and morphological patterns
+- **Classifier Detection**: Understands and applies appropriate noun classifiers
+- **Fuzzy Matching**: Handles typos and variations in input
+- **Semantic Understanding**: Not just literal word replacement, but contextual understanding
 
-1. `npm install`
-2. `npm run dev`
+### 📚 Comprehensive Dictionary
+- **6000+ vocabulary entries** organized by semantic categories
+- **Instant search** with category filtering
+- **Multi-language search** (English, Garo, Hindi)
+- **Classifier mappings** for all noun types
+- **Usage examples** for every entry
 
-## Build and serve
+### 💡 Learning Resources
+- **Daily Phrases**: Common expressions for social, market, travel, and cultural contexts
+- **Verb & Grammar Reference**: Complete guide to Garo grammar system
+- **Classifier System**: Learn when and how to use different noun classifiers
+- **Number System**: Dynamic number generation including compound numbers
+- **Pronouns & Possessives**: Complete pronoun paradigm with usage examples
 
-1. `npm run build`
-2. `npm start`
+## 🏗️ Architecture
 
-Open the site in your browser and type a sentence in English, Hindi, or Garo.
+### Frontend (React + TailwindCSS + Vite)
+- **4-Page SPA Application**:
+  1. **Translator**: Real-time semantic translation with grammar breakdown
+  2. **Dictionary**: Searchable vocabulary database with filters
+  3. **Phrases**: Curated collection of practical phrases
+  4. **Grammar & Verbs**: Educational reference for language structure
 
-## Extend dictionary
+### Backend (Express.js)
+- Static file serving
+- API endpoints for extensibility
+- Production-ready deployment configuration
 
-Add more words and phrases in `src/translator.js` to expand daily usage and sentence coverage.
+### Translation Engine
+- Semantic understanding rather than word-for-word translation
+- Morphology-aware verb conjugation
+- Classifier-intelligent counting system
+- Fuzzy normalization and error tolerance
+- Translation priority system (exact > compound > classified > normalized > morphology-aware > grammar-aware > semantic > fuzzy)
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 16+
+- npm or yarn
+
+### Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server with hot reload
+npm run dev
+
+# Opens at http://localhost:5173
+```
+
+### Building for Production
+
+```bash
+# Build optimized production bundle
+npm run build
+
+# Start production server
+npm start
+
+# Runs on http://localhost:3001
+```
+
+## 📋 Project Structure
+
+```
+Learn-garo/
+├── src/
+│   ├── App.jsx                    # Main app with routing
+│   ├── main.jsx                   # React entry point
+│   ├── index.css                  # TailwindCSS styles
+│   ├── translationEngine.js       # Semantic translation engine
+│   └── pages/
+│       ├── Translator.jsx         # Real-time translation
+│       ├── Dictionary.jsx         # Vocabulary search
+│       ├── Phrases.jsx           # Phrase collections
+│       └── VerbsGrammar.jsx      # Grammar reference
+├── garo_dictionary.json           # Master vocabulary database
+├── server.js                      # Express server
+├── vite.config.js                 # Vite configuration
+├── tailwind.config.js             # TailwindCSS configuration
+└── package.json                   # Dependencies
+```
+
+## 🔧 Semantic Translation Engine
+
+The translation engine is not a simple dictionary lookup. It includes:
+
+### Morphology Engine
+- Detects verb roots and tenses
+- Separates prefixes and suffixes
+- Reconstructs words from morphological components
+
+### Classifier System
+- Maps nouns to semantic categories (animals, people, objects, etc.)
+- Automatically applies appropriate classifiers for counting
+- Validates classifier-number agreement
+
+### Grammar Analyzer
+- SOV (Subject-Object-Verb) word order detection
+- Tense reconstruction from verb morphology
+- Sentence structure analysis
+
+### Fuzzy Matching
+- Handles typos: "handwash" → "hand wash"
+- Spacing normalization
+- Phonetic matching for variant spellings
+- Semantic matching as last resort
+
+## 📚 Garo Language Structure
+
+### Classifiers (Noun Counters)
+
+| Classifier | Use For | Examples |
+|-----------|---------|----------|
+| **Mang** | Animals, birds, fish, insects | achak sa·mang (one dog) |
+| **Sak** | People, persons | manderang gni·sak (two people) |
+| **Gong** | Money, coins, currency | tangka bonga·gong (five rupees) |
+| **King** | Books, paper, leaves, flat objects | ki·tap gni·king (two books) |
+| **Ge** | Objects, things, items, tools | chokki sa·ge (one chair) |
+
+### Verb Tenses
+
+| Tense | Suffix | Example | English |
+|-------|--------|---------|---------|
+| Present | -enga | cha·enga | eating |
+| Past | -aha | cha·aha | ate |
+| Future | -gen | cha·gen | will eat |
+
+### Number System
+
+Numbers 1-10: Sa, Gni, Gittam, Bri, Bonga, Dok, Sni, Chet, Sku, Chiking
+
+Tens: Kolgrik(20), Kolatchi(30), Sotbri(40), Sotbonga(50), Sotdok(60), Sotsni(70), Sotchet(80), Sotsku(90)
+
+Compound numbers add suffixes: Kolgrik-sa(21), Kolatchi-gni(32), Sotbri-bonga(45)
+
+## 🌐 Deployment
+
+### GitHub Pages
+```bash
+npm run build
+# Deploy dist/ folder to GitHub Pages
+```
+
+### Vercel
+```bash
+npm install -g vercel
+vercel
+```
+
+### Netlify
+```bash
+npm install -g netlify-cli
+netlify deploy --prod --dir=dist
+```
+
+### Docker
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
+EXPOSE 3001
+CMD ["npm", "start"]
+```
+
+### Railway, Render, Replit
+- All support Node.js applications
+- Set `npm start` as start command
+- Environment: Set NODE_ENV=production
+- Port: 3001 (or PORT environment variable)
+
+## 📖 Dictionary Structure
+
+Each vocabulary entry includes:
+- **English**: English word
+- **Garo**: Garo translation with tone markers (·)
+- **Hindi**: Hindi translation (Devanagari script)
+- **Category**: Semantic category (animals, colors, verbs, etc.)
+- **Classifier**: Appropriate noun classifier (if applicable)
+- **Examples**: Usage examples with full translations
+
+## 🎨 UI Features
+
+- **Dark Mode**: Toggle between light and dark themes
+- **Responsive Design**: Mobile-first layout works on all devices
+- **Semantic Highlighting**: Color-coded grammar analysis
+- **Real-Time Updates**: Instant translation as you type
+- **Copy-Paste Friendly**: Easy to copy translations
+- **Accessible**: ARIA labels and keyboard navigation
+
+## 🔍 Search Capabilities
+
+### Fuzzy Search
+- Typo tolerance
+- Partial matching
+- Phonetic similarity
+
+### Filters
+- By language (English, Garo, Hindi, All)
+- By category (Animals, Colors, Verbs, etc.)
+- By sort order (A-Z, Category)
+
+### Advanced
+- Compound word matching
+- Classifier-aware search
+- Root verb search
+
+## 📱 Browser Support
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 🤝 Contributing
+
+This platform is maintained to preserve and promote the A'chik Garo language. To contribute:
+
+1. Vocabulary improvements
+2. Grammar documentation
+3. Example phrases
+4. Translation engine enhancements
+5. Bug reports and fixes
+
+## 📄 License
+
+This project serves educational and cultural preservation purposes.
+
+## 🙏 Acknowledgments
+
+- A'chik Garo language speakers and educators
+- Meghalaya, India
+- Language preservation community
+- Indigenous language advocates
+
+## 📞 Support
+
+For issues, suggestions, or improvements, please create an issue in the repository.
+
+---
+
+**🌍 Preserving Indigenous Languages, Celebrating Culture, Enabling Communication**
+
+Made with ❤️ for the A'chik Garo community.
