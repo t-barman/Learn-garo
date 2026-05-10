@@ -1,4 +1,5 @@
 import garoDictionary from '../garo_dictionary.json'
+import { countNoun, validatePhrase, NUMBERS as NUMBER_WORDS } from './garo_classifier.js'
 
 /**
  * Semantic Translation Engine for Garo Language
@@ -9,6 +10,7 @@ class GaroTranslationEngine {
   constructor() {
     // Phrase dictionary for common expressions (checked FIRST before word-by-word)
     this.phraseDictionary = {
+      // Greetings
       'hi': 'Salam',
       'hello': 'Salam',
       'hi how are you': 'Salam, Na·a namengama?',
@@ -18,56 +20,72 @@ class GaroTranslationEngine {
       'good morning': 'Pringnam',
       'good night': 'Walnam',
       'good evening': 'Attamnam',
-      'thank you': 'Mitela',
-      'thanks': 'Mitela',
-      'i am fine': 'Anga namengaba',
-      'i am good': 'Anga namengaba',
-      'what are you doing': 'Maidakenga?',
       'good day': 'Salnam',
       'have a nice day': "Nang·na namgipa sal ong·china",
-      'i love you': 'Angna nang·na ka·sa',
-      'where are you from': 'Na·ra banoni?',
+
+      // Polite phrases
+      'thank you': 'Mitela',
+      'thanks': 'Mitela',
       'i am sorry': 'Angko kema ka·pabo',
+      'i am fine': 'Anga namengaba',
+      'i am good': 'Anga namengaba',
+
+      // Questions
+      'what are you doing': 'Maidakenga?',
+      'where are you from': 'Na·ra banoni?',
       'did you go to the market': 'Na·a bajalchi re·angama?',
       'did you eat': 'Na·a chiba?',
       'did you come': 'Na·a chamba?',
+
+      // Statements
       'i went to the market': 'Anga bajalchi re·ang·a',
-      'lets go': 'Chingna re·china',
-      'let us go': 'Chingna re·china',
+      'i love you': 'Angna nang·na ka·sa',
+
+      // Let's go — full form and spoken short form
+      "let's go": "Hai re'naha",
+      'lets go': "Hai re'naha",
+      'shall we go': "Hai re'naha",
+      "come let's go": "Hai re'naha",
+
+      // Pronouns
       'i': 'Anga',
       'you': 'Na·a',
       'they': 'Bisong',
+
+      // Common words
       'good': 'Nama',
       'very good': 'Nambea',
       'beautiful': 'Nitoa',
       'rice': 'Mi',
       'water': 'Chi',
+      'market': 'bajal',
       'yes': 'Hae',
-      'no': 'Daeh'
+      'no': 'Daeh',
+
+      // Verbs + ambiguity notes
+      'drive': "sala (note: also means 'to pull')",
+      'pull': "sala (note: also means 'to drive')",
+      'swim': "jroa (note: also means 'sting/stinging sensation' after insect bite)",
+      'climb': "maldoa (note: both maldoa and gadoa are valid)",
+      'gadoa': "gadoa (note: both maldoa and gadoa are valid)",
+      'pluck': "aka (note: as in plucking fruit from a tree)",
+      'roam': "rorama (note: both rorama and roama are valid)",
+      'lock': "teka (note: as in locking a door)",
+      'shoot': "goa (note: with suffix -ta becomes 'goata' meaning 'to throw')",
+      'throw': "goata (note: goa + suffix -ta)",
+      'look': "nia (note: same word as see and watch)",
+      'see': "nia (note: same word as look and watch)",
+      'watch': "nia (note: same word as look and see)",
+      'stare': "nitata (note: intensive form of nia)",
+      'smell': 'gingsika',
+      'spread': 'barama',
+      'show': 'mesoka',
+      'turn': 'badala',
+      'pour': "rua (note: as a noun means 'axe')",
+      'apply': 'nonga',
+      'go': "re'naha"
     }
 
-    // Number mappings for counting
-    this.NUMBERS = {
-      'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
-      'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10
-    }
-
-    // Classifier mappings - each classifier handles specific noun types
-    this.CLASSIFIERS = {
-      mang: ['animals', 'birds', 'fish', 'insects', 'chicken', 'hen', 'rooster', 'duck', 'cow', 'pig', 'goat', 'dog', 'cat'],
-      sak: ['people', 'person', 'man', 'woman', 'boy', 'girl', 'child', 'teacher', 'doctor', 'father', 'mother', 'brother', 'sister'],
-      gong: ['money', 'coin', 'currency', 'rupee', 'taka'],
-      king: ['book', 'paper', 'leaf', 'page', 'letter', 'notebook'],
-      ge: [] // general fallback
-    }
-
-    // Garo number words for classifier output
-    this.garoNumbers = {
-      1: 'sa', 2: 'gni', 3: 'gittam', 4: 'bri', 5: 'bonga',
-      6: 'dok', 7: 'sni', 8: 'chet', 9: 'sku', 10: 'chiking'
-    }
-
-    // Build indexes from dictionary
     this.dictionary = garoDictionary
     this.englishToGaro = {}
     this.garoToEnglish = {}
@@ -365,23 +383,35 @@ class GaroTranslationEngine {
       let i = 0
 
       while (i < words.length) {
+        const six = words.slice(i, i + 6).join(' ')
+        const five = words.slice(i, i + 5).join(' ')
+        const four = words.slice(i, i + 4).join(' ')
         const three = words.slice(i, i + 3).join(' ')
         const two = words.slice(i, i + 2).join(' ')
         const one = words[i]
 
         // Check number + noun pattern first
-        if (i + 1 < words.length && this.NUMBERS[one]) {
+        if (i + 1 < words.length && NUMBER_WORDS[one]) {
           const noun = words[i + 1]
           const nounTranslation = this.translateWord(noun, fromLang, toLang)
           if (nounTranslation) {
-            result.push(this.countNoun(nounTranslation.garo, noun, this.NUMBERS[one]))
+            result.push(countNoun(nounTranslation.garo, noun, one))
             i += 2
             continue
           }
         }
 
         // Try phrase matching with sliding window
-        if (this.phraseDictionary[three]) {
+        if (this.phraseDictionary[six]) {
+          result.push(this.phraseDictionary[six])
+          i += 6
+        } else if (this.phraseDictionary[five]) {
+          result.push(this.phraseDictionary[five])
+          i += 5
+        } else if (this.phraseDictionary[four]) {
+          result.push(this.phraseDictionary[four])
+          i += 4
+        } else if (this.phraseDictionary[three]) {
           result.push(this.phraseDictionary[three])
           i += 3
         } else if (this.phraseDictionary[two]) {
@@ -393,7 +423,7 @@ class GaroTranslationEngine {
         } else {
           // Fallback to dictionary word-by-word lookup
           const translation = this.translateWord(one, fromLang, toLang)
-          result.push(translation ? translation.garo : one)
+          result.push(translation ? translation.garo : `[${one}: unknown]`)
           i += 1
         }
       }
@@ -415,52 +445,53 @@ class GaroTranslationEngine {
     const translations = []
     const breakdown = []
 
-    tokens.forEach((token, idx) => {
-      // Check for number + noun pattern
-      if (fromLang === 'en' && this.NUMBERS[token.toLowerCase()] && idx + 1 < tokens.length) {
-        const count = this.NUMBERS[token.toLowerCase()]
+    for (let idx = 0; idx < tokens.length; idx++) {
+      const tokenWord = tokens[idx]
+
+      if (fromLang === 'en' && NUMBER_WORDS[tokenWord.toLowerCase()] && idx + 1 < tokens.length) {
+        const countWord = tokenWord.toLowerCase()
         const noun = tokens[idx + 1]
         const nounTranslation = this.translateWord(noun, fromLang, toLang)
         if (nounTranslation) {
-          const counted = this.countNoun(nounTranslation.garo, noun, count)
+          const counted = countNoun(nounTranslation.garo, noun, countWord)
           translations.push(counted)
           breakdown.push({
-            english: `${token} ${noun}`,
+            english: `${tokenWord} ${noun}`,
             garo: counted,
             category: nounTranslation.category
           })
-          return // Skip next iteration since we processed the noun
+          idx += 1
+          continue
         }
       }
 
-      const result = this.translateWord(token, fromLang, toLang)
-      
+      const result = this.translateWord(tokenWord, fromLang, toLang)
+
       if (result) {
         if (toLang === 'garo') {
           translations.push(result.garo)
           breakdown.push({
-            english: token,
+            english: tokenWord,
             garo: result.garo,
             category: result.category
           })
         } else {
           translations.push(result.english)
           breakdown.push({
-            garo: token,
+            garo: tokenWord,
             english: result.english,
             category: result.category
           })
         }
       } else {
-        // Unknown word - keep original
-        translations.push(token)
+        translations.push(`[${tokenWord}: unknown]`)
         breakdown.push({
-          english: fromLang === 'en' ? token : '?',
-          garo: fromLang === 'garo' ? token : '?',
+          english: fromLang === 'en' ? tokenWord : '?',
+          garo: fromLang === 'garo' ? tokenWord : '?',
           category: 'unknown'
         })
       }
-    })
+    }
 
     return {
       original: text,

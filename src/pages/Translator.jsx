@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import translationEngine from '../translationEngine'
 
 export default function Translator() {
@@ -66,27 +66,6 @@ export default function Translator() {
     e.preventDefault()
     handleTranslate()
   }
-
-  // Real-time translation (optional, can be disabled if manual translation is preferred)
-  useEffect(() => {
-    // Only do real-time translation if input is not empty and no manual translation is in progress
-    if (!inputText.trim() || loading) {
-      if (!inputText.trim()) {
-        setResult(null)
-        setBreakdown([])
-        setGrammar(null)
-        setError(null)
-      }
-      return
-    }
-
-    // Debounce real-time translation (optional)
-    const timeoutId = setTimeout(() => {
-      handleTranslate()
-    }, 500)
-
-    return () => clearTimeout(timeoutId)
-  }, [inputText, inputLang, outputLang])
 
   const examples = [
     { en: 'hi', garo: 'Salam' },
