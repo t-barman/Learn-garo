@@ -7,6 +7,60 @@ import garoDictionary from '../garo_dictionary.json'
 
 class GaroTranslationEngine {
   constructor() {
+    // Phrase dictionary for common expressions (checked FIRST before word-by-word)
+    this.phraseDictionary = {
+      'hi': 'Salam',
+      'hello': 'Salam',
+      'hi how are you': 'Salam, Na·a namengama?',
+      'hello how are you': 'Salam, Na·a namengama?',
+      'how are you': 'Na·a namengama?',
+      'how are you doing': 'Na·a namengama?',
+      'good morning': 'Pringnam',
+      'good night': 'Walnam',
+      'good evening': 'Attamnam',
+      'thank you': 'Mitela',
+      'thanks': 'Mitela',
+      'i am fine': 'Anga namengaba',
+      'i am good': 'Anga namengaba',
+      'what are you doing': 'Maidakenga?',
+      'good day': 'Salnam',
+      'have a nice day': "Nang·na namgipa sal ong·china",
+      'i love you': 'Angna nang·na ka·sa',
+      'where are you from': 'Na·ra banoni?',
+      'i am sorry': 'Angko kema ka·pabo',
+      'i': 'Anga',
+      'you': 'Na·a',
+      'they': 'Bisong',
+      'good': 'Nama',
+      'very good': 'Nambea',
+      'beautiful': 'Nitoa',
+      'rice': 'Mi',
+      'water': 'Chi',
+      'yes': 'Hae',
+      'no': 'Daeh'
+    }
+
+    // Number mappings for counting
+    this.NUMBERS = {
+      'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+      'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10
+    }
+
+    // Classifier mappings - each classifier handles specific noun types
+    this.CLASSIFIERS = {
+      mang: ['animals', 'birds', 'fish', 'insects', 'chicken', 'hen', 'rooster', 'duck', 'cow', 'pig', 'goat', 'dog', 'cat'],
+      sak: ['people', 'person', 'man', 'woman', 'boy', 'girl', 'child', 'teacher', 'doctor', 'father', 'mother', 'brother', 'sister'],
+      gong: ['money', 'coin', 'currency', 'rupee', 'taka'],
+      king: ['book', 'paper', 'leaf', 'page', 'letter', 'notebook'],
+      ge: [] // general fallback
+    }
+
+    // Garo number words for classifier output
+    this.garoNumbers = {
+      1: 'sa', 2: 'gni', 3: 'gittam', 4: 'bri', 5: 'bonga',
+      6: 'dok', 7: 'sni', 8: 'chet', 9: 'sku', 10: 'chiking'
+    }
+
     // Build indexes from dictionary
     this.dictionary = garoDictionary
     this.englishToGaro = {}
@@ -227,6 +281,49 @@ class GaroTranslationEngine {
   }
 
   /**
+   * Get classifier for a noun based on category
+   */
+  getClassifierForNoun(englishNoun) {
+    const nounLower = englishNoun.toLowerCase()
+    for (const [classifier, words] of Object.entries(this.CLASSIFIERS)) {
+      if (words.includes(nounLower)) {
+        return classifier
+      }
+    }
+    return 'ge' // default fallback classifier
+  }
+
+  /**
+   * Count a noun with proper classifier and word order
+   * Word order in Garo: NOUN + CLASSIFIER-NUMBER
+   */
+  countNoun(garoNoun, englishNoun, count) {
+    const number = this.garoNumbers[count]
+    if (!number) return `${garoNoun} (number out of range 1-10)`
+    const classifier = this.getClassifierForNoun(englishNoun)
+    return `${garoNoun} ${classifier}-${number}`
+  }
+
+  /**
+   * Detect if a text contains a number word followed by a noun
+   * Returns {hasNumber: bool, count: number, nounStartIndex: number}
+   */
+  detectNumberPhrase(words) {
+    for (let i = 0; i < words.length - 1; i++) {
+      const word = words[i].toLowerCase()
+      if (this.NUMBERS[word]) {
+        return {
+          hasNumber: true,
+          count: this.NUMBERS[word],
+          numberIndex: i,
+          nounIndex: i + 1
+        }
+      }
+    }
+    return { hasNumber: false }
+  }
+
+  /**
    * Translate single word
    */
   translateWord(word, fromLang = 'en', toLang = 'garo') {
@@ -243,16 +340,93 @@ class GaroTranslationEngine {
   }
 
   /**
-   * Translate sentence with semantic understanding
+   * Translate using phrase-first sliding window approach
+   * Checks phrases FIRST (3-word, 2-word) before falling back to word-by-word
    */
-  translateSentence(text, fromLang = 'en', toLang = 'garo') {
+  translateWithPhrases(text, fromLang = 'en', toLang = 'garo') {
+    const lower = text.toLowerCase().trim()
+    
+    // Only do phrase matching for English to Garo
+    if (fromLang === 'en' && toLang === 'garo') {
+      // Check exact phrase match first
+      if (this.phraseDictionary[lower]) {
+        return this.phraseDictionary[lower]
+      }
+
+      // Sliding window: 3-word, 2-word, then 1-word
+      const words = lower.split(/\s+/)
+      const result = []
+      let i = 0
+
+      while (i < words.length) {
+        const three = words.slice(i, i + 3).join(' ')
+        const two = words.slice(i, i + 2).join(' ')
+        const one = words[i]
+
+        // Check number + noun pattern first
+        if (i + 1 < words.length && this.NUMBERS[one]) {
+          const noun = words[i + 1]
+          const nounTranslation = this.translateWord(noun, fromLang, toLang)
+          if (nounTranslation) {
+            result.push(this.countNoun(nounTranslation.garo, noun, this.NUMBERS[one]))
+            i += 2
+            continue
+          }
+        }
+
+        // Try phrase matching with sliding window
+        if (this.phraseDictionary[three]) {
+          result.push(this.phraseDictionary[three])
+          i += 3
+        } else if (this.phraseDictionary[two]) {
+          result.push(this.phraseDictionary[two])
+          i += 2
+        } else if (this.phraseDictionary[one]) {
+          result.push(this.phraseDictionary[one])
+          i += 1
+        } else {
+          // Fallback to dictionary word-by-word lookup
+          const translation = this.translateWord(one, fromLang, toLang)
+          result.push(translation ? translation.garo : one)
+          i += 1
+        }
+      }
+
+      return result.join(' ')
+    }
+
+    // For non-English or non-Garo, fall back to word-by-word
+    return this.translateSentenceWordByWord(text, fromLang, toLang).translated
+  }
+
+  /**
+   * Translate sentence word-by-word (fallback)
+   */
+  translateSentenceWordByWord(text, fromLang = 'en', toLang = 'garo') {
     const tokens = this.tokenize(text)
-    if (tokens.length === 0) return ''
+    if (tokens.length === 0) return { original: text, translated: '', breakdown: [] }
 
     const translations = []
     const breakdown = []
 
-    tokens.forEach(token => {
+    tokens.forEach((token, idx) => {
+      // Check for number + noun pattern
+      if (fromLang === 'en' && this.NUMBERS[token.toLowerCase()] && idx + 1 < tokens.length) {
+        const count = this.NUMBERS[token.toLowerCase()]
+        const noun = tokens[idx + 1]
+        const nounTranslation = this.translateWord(noun, fromLang, toLang)
+        if (nounTranslation) {
+          const counted = this.countNoun(nounTranslation.garo, noun, count)
+          translations.push(counted)
+          breakdown.push({
+            english: `${token} ${noun}`,
+            garo: counted,
+            category: nounTranslation.category
+          })
+          return // Skip next iteration since we processed the noun
+        }
+      }
+
       const result = this.translateWord(token, fromLang, toLang)
       
       if (result) {
@@ -287,6 +461,47 @@ class GaroTranslationEngine {
       translated: translations.join(' '),
       breakdown,
       language: toLang
+    }
+  }
+
+  /**
+   * Translate sentence with phrase-first approach
+   */
+  translateSentence(text, fromLang = 'en', toLang = 'garo') {
+    try {
+      const translated = this.translateWithPhrases(text, fromLang, toLang)
+      const breakdown = []
+      
+      // Build breakdown for display
+      const tokens = this.tokenize(text)
+      tokens.forEach(token => {
+        const result = this.translateWord(token, fromLang, toLang)
+        if (result) {
+          if (toLang === 'garo') {
+            breakdown.push({
+              english: token,
+              garo: result.garo,
+              category: result.category
+            })
+          }
+        }
+      })
+
+      return {
+        original: text,
+        translated,
+        breakdown,
+        language: toLang
+      }
+    } catch (error) {
+      console.error('Translation error:', error)
+      return {
+        original: text,
+        translated: '',
+        breakdown: [],
+        language: toLang,
+        error: 'Translation failed'
+      }
     }
   }
 

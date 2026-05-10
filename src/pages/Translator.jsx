@@ -8,35 +8,68 @@ export default function Translator() {
   const [result, setResult] = useState(null)
   const [breakdown, setBreakdown] = useState([])
   const [grammar, setGrammar] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  // Real-time translation
+  // Real-time translation with error handling
   useEffect(() => {
     if (!inputText.trim()) {
       setResult(null)
       setBreakdown([])
       setGrammar(null)
+      setError(null)
       return
     }
 
-    // Perform translation
-    const translationResult = translationEngine.translateSentence(
-      inputText,
-      inputLang,
-      outputLang
-    )
-    setResult(translationResult)
-    setBreakdown(translationResult.breakdown || [])
+    // Prevent same language translation
+    if (inputLang === outputLang) {
+      setError('Please select different source and target languages')
+      setResult(null)
+      return
+    }
 
-    // Analyze grammar
-    const grammarAnalysis = translationEngine.analyzeGrammar(inputText, inputLang)
-    setGrammar(grammarAnalysis)
+    setLoading(true)
+    setError(null)
+
+    try {
+      // Perform translation
+      const translationResult = translationEngine.translateSentence(
+        inputText,
+        inputLang,
+        outputLang
+      )
+
+      if (!translationResult) {
+        throw new Error('Translation returned null')
+      }
+
+      if (translationResult.error) {
+        setError(translationResult.error)
+        setResult(null)
+      } else {
+        setResult(translationResult)
+        setBreakdown(translationResult.breakdown || [])
+        setError(null)
+      }
+
+      // Analyze grammar
+      const grammarAnalysis = translationEngine.analyzeGrammar(inputText, inputLang)
+      setGrammar(grammarAnalysis)
+    } catch (err) {
+      console.error('Translation error:', err)
+      setError(`Translation failed: ${err.message}`)
+      setResult(null)
+      setBreakdown([])
+    } finally {
+      setLoading(false)
+    }
   }, [inputText, inputLang, outputLang])
 
   const examples = [
-    { en: 'I am eating rice', garo: 'Anga mi cha·enga' },
-    { en: 'I went to see the doctor', garo: 'Anga doctorko ni·china re·angaha' },
-    { en: 'two chickens', garo: 'Mang Gni Do·o' },
-    { en: 'How are you?', garo: 'Na·a namengama?' },
+    { en: 'hi', garo: 'Salam' },
+    { en: 'hello how are you', garo: 'Salam, Na·a namengama?' },
+    { en: 'thank you', garo: 'Mitela' },
+    { en: 'good morning', garo: 'Pringnam' },
   ]
 
   const handleExample = (example) => {
@@ -49,6 +82,7 @@ export default function Translator() {
     if (inputLang !== outputLang) {
       setInputLang(outputLang)
       setOutputLang(inputLang)
+      setError(null)
     }
   }
 
@@ -106,7 +140,8 @@ export default function Translator() {
             <select
               value={outputLang}
               onChange={(e) => setOutputLang(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={loading}
+              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
             >
               <option value="garo">Garo 🌍</option>
               <option value="en">English 🇬🇧</option>
@@ -115,7 +150,18 @@ export default function Translator() {
           </label>
 
           <div className="w-full h-48 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white overflow-y-auto font-mono select-all">
-            {result ? (
+            {error ? (
+              <div className="text-red-600 dark:text-red-400 font-semibold">
+                ⚠️ {error}
+              </div>
+            ) : loading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                  <span className="text-gray-500 dark:text-gray-400">Translating...</span>
+                </div>
+              </div>
+            ) : result ? (
               <div>
                 <div className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">
                   {result.translated}
@@ -131,7 +177,8 @@ export default function Translator() {
 
           <button
             onClick={swapLanguages}
-            className="mt-3 w-full px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors font-medium"
+            disabled={loading}
+            className="mt-3 w-full px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
             ⇅ Swap Languages
           </button>
