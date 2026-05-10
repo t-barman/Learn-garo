@@ -31,19 +31,46 @@ class GaroTranslationEngine {
         if (key.startsWith('_')) return
 
         const english = key.toLowerCase().trim()
-        const garo = String(value).toLowerCase().trim()
+        
+        // Handle new trilingual format: value is an object with garo and hindi properties
+        let garo = ''
+        let hindi = ''
+        
+        if (typeof value === 'object' && value !== null) {
+          garo = (value.garo || '').toLowerCase().trim()
+          hindi = (value.hindi || '').toLowerCase().trim()
+        } else {
+          // Handle old simple string format
+          garo = String(value).toLowerCase().trim()
+        }
 
-        // Build bidirectional indexes
+        // Build indices
         if (english && garo) {
           this.englishToGaro[english] = {
             garo,
+            hindi,
             category,
             priority: 'exact'
           }
           this.garoToEnglish[garo] = {
             english,
+            hindi,
             category,
             priority: 'exact'
+          }
+          if (hindi) {
+            this.englishToHindi[english] = {
+              hindi,
+              garo,
+              category,
+              priority: 'exact'
+            }
+            this.hindiToGaro[hindi] = {
+              garo,
+              english,
+              category,
+              priority: 'exact'
+            }
           }
         }
       })
@@ -271,11 +298,22 @@ class GaroTranslationEngine {
     if (!section) return []
 
     const results = []
-    Object.entries(section).forEach(([english, garo]) => {
+    Object.entries(section).forEach(([english, value]) => {
       if (!english.startsWith('_')) {
+        let garo = ''
+        let hindi = ''
+        
+        if (typeof value === 'object' && value !== null) {
+          garo = value.garo || ''
+          hindi = value.hindi || ''
+        } else {
+          garo = String(value)
+        }
+        
         results.push({
           english,
-          garo: String(garo),
+          garo,
+          hindi,
           category
         })
       }
@@ -302,17 +340,28 @@ class GaroTranslationEngine {
       if (category.startsWith('_')) return
 
       const section = this.dictionary[category]
-      Object.entries(section).forEach(([english, garo]) => {
+      Object.entries(section).forEach(([english, value]) => {
         if (english.startsWith('_')) return
 
+        let garo = ''
+        let hindi = ''
+        
+        if (typeof value === 'object' && value !== null) {
+          garo = value.garo || ''
+          hindi = value.hindi || ''
+        } else {
+          garo = String(value)
+        }
+
         const eng = english.toLowerCase()
-        const gar = String(garo).toLowerCase()
+        const gar = garo.toLowerCase()
 
         if (language === 'all' || language === 'english') {
           if (eng.includes(normalized)) {
             results.push({
               english: english.toLowerCase(),
-              garo: String(garo),
+              garo,
+              hindi,
               category,
               matched: 'english'
             })
@@ -323,7 +372,8 @@ class GaroTranslationEngine {
           if (gar.includes(normalized)) {
             results.push({
               english: english.toLowerCase(),
-              garo: String(garo),
+              garo,
+              hindi,
               category,
               matched: 'garo'
             })
