@@ -11,20 +11,16 @@ export default function Translator() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  // Real-time translation with error handling
-  useEffect(() => {
+  // Manual translation function
+  const handleTranslate = async () => {
     if (!inputText.trim()) {
-      setResult(null)
-      setBreakdown([])
-      setGrammar(null)
-      setError(null)
+      setError('Please enter text to translate')
       return
     }
 
     // Prevent same language translation
     if (inputLang === outputLang) {
       setError('Please select different source and target languages')
-      setResult(null)
       return
     }
 
@@ -63,6 +59,33 @@ export default function Translator() {
     } finally {
       setLoading(false)
     }
+  }
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    handleTranslate()
+  }
+
+  // Real-time translation (optional, can be disabled if manual translation is preferred)
+  useEffect(() => {
+    // Only do real-time translation if input is not empty and no manual translation is in progress
+    if (!inputText.trim() || loading) {
+      if (!inputText.trim()) {
+        setResult(null)
+        setBreakdown([])
+        setGrammar(null)
+        setError(null)
+      }
+      return
+    }
+
+    // Debounce real-time translation (optional)
+    const timeoutId = setTimeout(() => {
+      handleTranslate()
+    }, 500)
+
+    return () => clearTimeout(timeoutId)
   }, [inputText, inputLang, outputLang])
 
   const examples = [
@@ -100,37 +123,59 @@ export default function Translator() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Section */}
         <div className="card dark:bg-gray-800 dark:border-gray-700">
-          <label className="block text-sm font-bold mb-3">
-            Input Language
-            <select
-              value={inputLang}
-              onChange={(e) => setInputLang(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="en">English 🇬🇧</option>
-              <option value="garo">Garo 🌍</option>
-              <option value="hi">Hindi 🇮🇳</option>
-            </select>
-          </label>
+          <form onSubmit={handleSubmit}>
+            <label className="block text-sm font-bold mb-3">
+              Input Language
+              <select
+                value={inputLang}
+                onChange={(e) => setInputLang(e.target.value)}
+                disabled={loading}
+                className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              >
+                <option value="en">English 🇬🇧</option>
+                <option value="garo">Garo 🌍</option>
+                <option value="hi">Hindi 🇮🇳</option>
+              </select>
+            </label>
 
-          <textarea
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            placeholder="Type something to translate..."
-            className="w-full h-48 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-          />
+            <textarea
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder="Type something to translate..."
+              disabled={loading}
+              className="w-full h-48 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none disabled:opacity-50"
+            />
 
-          <div className="mt-3 flex justify-between items-center">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              {inputText.length} characters
-            </span>
-            <button
-              onClick={() => setInputText('')}
-              className="text-sm px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              Clear
-            </button>
-          </div>
+            <div className="mt-3 flex justify-between items-center">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {inputText.length} characters
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="submit"
+                  disabled={loading || !inputText.trim()}
+                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Translating...
+                    </div>
+                  ) : (
+                    'Translate'
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInputText('')}
+                  disabled={loading}
+                  className="text-sm px-3 py-2 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors disabled:opacity-50"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
 
         {/* Output Section */}
