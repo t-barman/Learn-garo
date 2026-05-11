@@ -262,13 +262,7 @@
         "hindi": "यह तुम्हारा है"
       },
       {
-,
-"let's": {
-  "garo": "Hai",
-  "english": "let's",
-  "pos": "expression",
-  "example": "Hai re·ang·bo = Let's go"
-}        "english": "This is my house",
+        "english": "This is my house",
         "garo": "Ia angni nok",
         "hindi": "यह मेरा घर है"
       },
@@ -506,8 +500,7 @@
       "english": "don't do / not doing",
       "pos": "verb",
       "example": "Indake dak·ja = don't do like that"
-    }
-    ,
+    },
     "have": {
       "garo": "Donga / Man·a",
       "english": "have / possess / obtain",
@@ -586,7 +579,6 @@
       "pos": "expression",
       "example": "Hai re·ang·bo = Let's go"
     }
-
   },
   "question_words": {
     "_classifier": null,
