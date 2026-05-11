@@ -1,6 +1,7 @@
-import garoDictionary from '../garo_dictionary.json'
-import conversationPatterns from './data/dictionary/conversation_patterns.json'
+import garoDictionary from '../garo_dictionary.json' assert { type: 'json' }
+import conversationPatterns from './data/dictionary/conversation_patterns.json' assert { type: 'json' }
 import { countNoun } from './garo_classifier'
+import { analyzeSentence } from './gemini'
 
 class GaroTranslationEngine {
 
@@ -214,22 +215,6 @@ class GaroTranslationEngine {
     this.buildIndexes()
     this.buildConversationPatterns()
     this.buildPhraseMap()
-  }
-
-  // =====================================================
-  // NORMALIZE
-  // =====================================================
-
-  normalize(text) {
-
-    if (!text) return ''
-
-    return String(text)
-      .normalize('NFKC')
-      .toLowerCase()
-      .replace(/[.,!?‘’']/g, '')
-      .replace(/\s+/g, ' ')
-      .trim()
   }
 
   // =====================================================
@@ -472,22 +457,6 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
-  // NORMALIZE
-  // =====================================================
-
-  normalize(text) {
-
-    if (!text) return ''
-
-    return String(text)
-      .normalize('NFKC')
-      .toLowerCase()
-      .replace(/[.,!?‘’']/g, '')
-      .replace(/\s+/g, ' ')
-      .trim()
-  }
-
-  // =====================================================
   // TOKENIZE
   // =====================================================
 
@@ -496,6 +465,61 @@ class GaroTranslationEngine {
     return this.normalize(text)
       .split(' ')
       .filter(Boolean)
+  }
+
+  // =====================================================
+  // DETECT TENSE
+  // =====================================================
+
+  detectTense(words = []) {
+
+    if (!Array.isArray(words)) {
+      return 'unknown'
+    }
+
+    const text = words.join(' ').toLowerCase()
+
+    if (
+      words.includes('am') ||
+      words.includes('is') ||
+      words.includes('are')
+    ) {
+      return 'present_continuous'
+    }
+
+    if (
+      words.includes('was') ||
+      words.includes('were') ||
+      words.includes('did') ||
+      words.includes('ate') ||
+      words.includes('went') ||
+      words.includes('came')
+    ) {
+      return 'past'
+    }
+
+    if (
+      words.includes('will') ||
+      words.includes('shall') ||
+      words.includes('going') ||
+      words.includes('about')
+    ) {
+      return 'future'
+    }
+
+    if (text.includes('enga')) {
+      return 'present_continuous'
+    }
+
+    if (text.includes('aha')) {
+      return 'past'
+    }
+
+    if (text.includes('gen')) {
+      return 'future'
+    }
+
+    return 'unknown'
   }
 
   // =====================================================
@@ -690,10 +714,143 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
+  // DETECT VERB
+  // =====================================================
+
+  detectVerb(word = '') {
+
+    if (!word) return null
+
+    const normalized = String(word).toLowerCase().trim()
+
+    return this.verbs[normalized] || null
+  }
+
+  // =====================================================
+  // BUILD TRUE GARO SENTENCE
+  // =====================================================
+
+  buildSentence(words = []) {
+
+    let subject = ''
+    let objects = []
+    let verb = ''
+
+    const tense =
+      this.detectTense(words)
+
+    for (const word of words) {
+
+      if (
+        this.helperWords.includes(word)
+      ) {
+        continue
+      }
+
+      // SUBJECT
+
+      if (this.pronouns[word]) {
+
+        subject =
+          this.pronouns[word]
+
+        continue
+      }
+
+      // VERB
+
+      const foundVerb =
+        this.detectVerb(word)
+
+      if (foundVerb) {
+
+        verb =
+          this.buildVerb(
+            foundVerb,
+            tense
+          )
+
+        continue
+      }
+
+      // OBJECT
+
+      objects.push(
+        this.translateWord(word)
+      )
+    }
+
+    return [
+
+      subject,
+      ...objects,
+      verb,
+
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+
+  // =====================================================
+  // BUILD VERB
+  // =====================================================
+
+  buildVerb(root = '', tense = 'unknown') {
+
+    if (!root) return ''
+
+    switch (tense) {
+
+      case 'present_continuous':
+        return root + 'enga'
+
+      case 'past':
+        return root + 'aha'
+
+      case 'future':
+        return root + 'gen'
+
+      default:
+        return root + 'enga'
+    }
+  }
+
+  // =====================================================
+  // HELPER WORDS
+  // =====================================================
+
+  get helperWords() {
+    return [
+      'am',
+      'is',
+      'are',
+      'was',
+      'were',
+      'have',
+      'has',
+      'had',
+      'the',
+      'a',
+      'an',
+      'to',
+      'be',
+      'will',
+      'shall',
+      'do',
+      'does',
+      'did',
+      'going',
+      'about',
+    ]
+  }
+
+  // =====================================================
   // ANALYZE GRAMMAR
   // =====================================================
 
-  analyzeGrammar(text = '') {
+  async analyzeGrammar(text = '') {
 
     try {
 
@@ -701,7 +858,10 @@ class GaroTranslationEngine {
         this.normalize(text)
 
       const words =
-        this.tokenize(normalized)
+        this.tokenize(text)
+
+      // Use Gemini for advanced analysis
+      const geminiAnalysis = await analyzeSentence(text)
 
       return {
 
@@ -713,23 +873,29 @@ class GaroTranslationEngine {
 
         words,
 
-        tense:
-          normalized.includes('enga')
-            ? 'present_continuous'
-            : normalized.includes('aha')
-            ? 'past'
-            : normalized.includes('gen')
-            ? 'future'
-            : 'unknown',
+        tense: geminiAnalysis.tense || this.detectTense(words),
 
         isQuestion:
-          normalized.includes('?'),
+          normalized.includes('?') ||
+          normalized.startsWith('what') ||
+          normalized.startsWith('where') ||
+          normalized.startsWith('how') ||
+          normalized.startsWith('why') ||
+          normalized.startsWith('when'),
 
         hasConversationPattern:
           !!this.conversationMap?.[normalized],
 
         translation:
           this.translate(text),
+
+        gemini: geminiAnalysis,
+
+        morphology: [],
+
+        numbers: geminiAnalysis.quantity ? [geminiAnalysis.quantity] : [],
+
+        classifiers: geminiAnalysis.counting ? ['detected'] : [],
       }
 
     } catch (error) {
@@ -740,18 +906,141 @@ class GaroTranslationEngine {
       )
 
       return {
+
         original: text,
+
         normalized: this.normalize(text),
+
         wordCount: 0,
+
         words: [],
+
         tense: 'unknown',
+
         isQuestion: false,
+
         hasConversationPattern: false,
+
         translation: '',
+
+        gemini: null,
+
         morphology: [],
+
         numbers: [],
-        error: true,
+
+        classifiers: [],
       }
+    }
+  }
+
+  // =====================================================
+  // SEARCH VOCAB
+  // =====================================================
+
+  searchVocabulary(query = '') {
+
+    const q =
+      this.normalize(query)
+
+    return Object.keys(
+      this.englishToGaro
+    )
+
+      .filter(word =>
+        word.includes(q)
+      )
+
+      .map(word => ({
+
+        english: word,
+
+        garo:
+          this.englishToGaro[word],
+      }))
+  }
+
+  // =====================================================
+  // GET CATEGORIES
+  // =====================================================
+
+  getAllCategories() {
+
+    return Object.keys(
+      this.dictionary || {}
+    )
+  }
+
+  // =====================================================
+  // FIXED CATEGORY VOCAB
+  // =====================================================
+
+  getCategoryVocabulary(category) {
+
+    try {
+
+      const section =
+        this.dictionary?.[category]
+
+      if (
+        !section ||
+        typeof section !== 'object' ||
+        Array.isArray(section)
+      ) {
+        return []
+      }
+
+      const result =
+        Object.entries(section)
+
+          .filter(([key]) =>
+            key &&
+            !String(key).startsWith('_')
+          )
+
+          .map(([english, value]) => {
+
+            let garo = ''
+
+            if (
+              typeof value === 'object' &&
+              value !== null
+            ) {
+
+              garo =
+                value.garo || ''
+
+            } else {
+
+              garo =
+                String(value || '')
+            }
+
+            return {
+
+              english:
+                String(english),
+
+              garo:
+                String(garo),
+
+              category:
+                String(category),
+            }
+          })
+
+      return Array.isArray(result)
+        ? result
+        : []
+
+    } catch (error) {
+
+      console.error(
+        'Category load failed:',
+        error
+      )
+
+      return []
     }
   }
 }

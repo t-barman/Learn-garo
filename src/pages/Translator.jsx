@@ -49,7 +49,7 @@ export default function Translator() {
       }
 
       // Analyze grammar
-      const grammarAnalysis = translationEngine.analyzeGrammar(inputText, inputLang)
+      const grammarAnalysis = await translationEngine.analyzeGrammar(inputText, inputLang)
       setGrammar(grammarAnalysis)
     } catch (err) {
       console.error('Translation error:', err)
