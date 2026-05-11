@@ -1,10 +1,19 @@
+```js
 import garoDictionary from '../garo_dictionary.json'
 
 class GaroTranslationEngine {
 
   constructor() {
 
-    this.dictionary = garoDictionary || {}
+    // =====================================================
+    // SAFE DICTIONARY LOAD
+    // =====================================================
+
+    this.dictionary =
+      typeof garoDictionary === 'object' &&
+      garoDictionary !== null
+        ? garoDictionary
+        : {}
 
     this.englishToGaro = {}
     this.garoToEnglish = {}
@@ -112,7 +121,9 @@ class GaroTranslationEngine {
       "let's go":
         "Hai re·naha",
 
+      // =================================================
       // TRUE GARO SENTENCES
+      // =================================================
 
       'drink water':
         'Chi ringbo',
@@ -196,7 +207,11 @@ class GaroTranslationEngine {
 
         const section = this.dictionary[category]
 
-        if (!section || typeof section !== 'object') {
+        if (
+          !section ||
+          typeof section !== 'object' ||
+          Array.isArray(section)
+        ) {
           return
         }
 
@@ -204,7 +219,7 @@ class GaroTranslationEngine {
 
           if (!engKey) return
 
-          if (engKey.startsWith('_')) {
+          if (String(engKey).startsWith('_')) {
             return
           }
 
@@ -221,7 +236,7 @@ class GaroTranslationEngine {
           } else {
 
             garoValue =
-              String(value)
+              String(value || '')
           }
 
           const english =
@@ -290,7 +305,6 @@ class GaroTranslationEngine {
       words.includes('is') ||
       words.includes('are')
     ) {
-
       return 'continuous'
     }
 
@@ -298,7 +312,6 @@ class GaroTranslationEngine {
       words.includes('have') ||
       words.includes('has')
     ) {
-
       return 'perfect'
     }
 
@@ -306,14 +319,12 @@ class GaroTranslationEngine {
       words.includes('was') ||
       words.includes('were')
     ) {
-
       return 'past'
     }
 
     if (
       words.includes('will')
     ) {
-
       return 'future'
     }
 
@@ -430,9 +441,7 @@ class GaroTranslationEngine {
   buildSentence(words = []) {
 
     let subject = ''
-
     let objects = []
-
     let verb = ''
 
     const tense =
@@ -479,15 +488,10 @@ class GaroTranslationEngine {
       )
     }
 
-    // TRUE GARO ORDER:
-    // SUBJECT + OBJECT + VERB
-
     return [
 
       subject,
-
       ...objects,
-
       verb,
 
     ]
@@ -512,10 +516,9 @@ class GaroTranslationEngine {
         return ''
       }
 
-      // EXACT PHRASE MATCH
+      // EXACT PHRASE
 
       if (this.phrases[normalized]) {
-
         return this.phrases[normalized]
       }
 
@@ -649,7 +652,7 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
-  // SEARCH
+  // SEARCH VOCAB
   // =====================================================
 
   searchVocabulary(query = '') {
@@ -675,7 +678,7 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
-  // GET ALL CATEGORIES
+  // GET CATEGORIES
   // =====================================================
 
   getAllCategories() {
@@ -691,50 +694,73 @@ class GaroTranslationEngine {
 
   getCategoryVocabulary(category) {
 
-    const section =
-      this.dictionary?.[category]
+    try {
 
-    if (!section) {
-      return []
-    }
+      const section =
+        this.dictionary?.[category]
 
-    // IMPORTANT:
-    // RETURN ARRAY NOT OBJECT
+      if (
+        !section ||
+        typeof section !== 'object' ||
+        Array.isArray(section)
+      ) {
+        return []
+      }
 
-    return Object.entries(section)
+      const result =
+        Object.entries(section)
 
-      .filter(([key]) =>
-        !key.startsWith('_')
+          .filter(([key]) =>
+            key &&
+            !String(key).startsWith('_')
+          )
+
+          .map(([english, value]) => {
+
+            let garo = ''
+
+            if (
+              typeof value === 'object' &&
+              value !== null
+            ) {
+
+              garo =
+                value.garo || ''
+
+            } else {
+
+              garo =
+                String(value || '')
+            }
+
+            return {
+
+              english:
+                String(english),
+
+              garo:
+                String(garo),
+
+              category:
+                String(category),
+            }
+          })
+
+      return Array.isArray(result)
+        ? result
+        : []
+
+    } catch (error) {
+
+      console.error(
+        'Category load failed:',
+        error
       )
 
-      .map(([english, value]) => {
-
-        let garo = ''
-
-        if (
-          typeof value === 'object' &&
-          value !== null
-        ) {
-
-          garo =
-            value.garo || ''
-
-        } else {
-
-          garo =
-            String(value)
-        }
-
-        return {
-
-          english,
-
-          garo,
-
-          category,
-        }
-      })
+      return []
+    }
   }
 }
 
 export default new GaroTranslationEngine()
+```
