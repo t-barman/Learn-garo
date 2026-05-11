@@ -70,6 +70,8 @@ class GaroTranslationEngine {
       cat: 'animals',
       dog: 'animals',
       fish: 'insects_and_aquatic',
+      banana: 'fruits',
+      book: 'education',
     }
 
     this.numberWords = {

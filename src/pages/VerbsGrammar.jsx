@@ -94,7 +94,7 @@ export default function VerbsGrammar() {
     {
       title: 'Classifiers',
       description: 'Nouns require appropriate classifiers when counted',
-      example: 'Mang Gni Do·o = two chickens (Classifier + Number + Noun)',
+      example: 'Do·o mang-gni = two chickens (Noun + Classifier-Number)',
       note: 'Different noun categories use different classifiers'
     },
     {
