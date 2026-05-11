@@ -141,6 +141,15 @@ class GaroTranslationEngine {
       "let's run":
         "Hai katha",
 
+      "let's eat food":
+        "Hai, mi cha·na",
+
+      "let's eat rice":
+        "Hai, mi cha·na",
+
+      "let's go eat":
+        "Hai, mi cha·na re·na",
+
       // =================================================
       // TRUE GARO SENTENCES
       // =================================================

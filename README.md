@@ -129,6 +129,8 @@ The translation engine is not a simple dictionary lookup. It includes:
 - Verified translations:
   - `lets go` → `Hai re·naha`
   - `lets eat` → `Hai cha·ha`
+  - `lets eat food` → `Hai, mi cha·na`
+  - `lets go eat` → `Hai, mi cha·na re·na`
   - `lets run` → `Hai katha`
 
 ## 📚 Garo Language Structure
