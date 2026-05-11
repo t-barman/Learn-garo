@@ -18,7 +18,7 @@ export default function VerbsGrammar() {
       use_for: 'Animals, Birds, Fish, Insects',
       examples: [
         'Achak sa·mang (one dog)',
-        'Do·o gni·mang (two chickens)',
+        'Do·o mang-gni (two chickens)',
         'Na·tok gittam·mang (three fish)'
       ]
     },

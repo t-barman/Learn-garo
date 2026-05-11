@@ -1,5 +1,6 @@
 import garoDictionary from '../garo_dictionary.json'
 import conversationPatterns from './data/dictionary/conversation_patterns.json'
+import { countNoun } from './garo_classifier'
 
 class GaroTranslationEngine {
 
@@ -46,6 +47,8 @@ class GaroTranslationEngine {
       milk: 'to',
       meat: 'bik',
       fish: 'na·tok',
+      chicken: 'do·o',
+      bird: 'do·o',
 
       market: 'bajal',
       school: 'skul',
@@ -58,6 +61,28 @@ class GaroTranslationEngine {
 
       dog: 'a·chak',
       cat: 'bi·sim',
+    }
+
+    this.englishToCategory = {}
+    this.manualNounCategoryMap = {
+      chicken: 'birds',
+      bird: 'birds',
+      cat: 'animals',
+      dog: 'animals',
+      fish: 'insects_and_aquatic',
+    }
+
+    this.numberWords = {
+      one: 1,
+      two: 2,
+      three: 3,
+      four: 4,
+      five: 5,
+      six: 6,
+      seven: 7,
+      eight: 8,
+      nine: 9,
+      ten: 10,
     }
 
     // =====================================================
@@ -370,6 +395,7 @@ class GaroTranslationEngine {
 
           this.englishToGaro[english] = garo
           this.garoToEnglish[garo] = english
+          this.englishToCategory[english] = category
         })
       })
 
@@ -380,6 +406,83 @@ class GaroTranslationEngine {
         error
       )
     }
+  }
+
+  // =====================================================
+  // COUNT PHRASES
+  // =====================================================
+
+  parseNumberWord(word = '') {
+    if (!word) return null
+    const normalized = String(word).toLowerCase().trim()
+    if (/^\d+$/.test(normalized)) {
+      const n = Number(normalized)
+      return n >= 1 && n <= 10 ? n : null
+    }
+    return this.numberWords[normalized] || null
+  }
+
+  singularizeWord(word = '') {
+    if (!word) return ''
+    const normalized = String(word).toLowerCase().trim()
+    if (this.englishToGaro[normalized] || this.nouns[normalized]) {
+      return normalized
+    }
+    if (normalized.endsWith('ies')) {
+      return normalized.slice(0, -3) + 'y'
+    }
+    if (normalized.endsWith('es')) {
+      return normalized.slice(0, -2)
+    }
+    if (normalized.endsWith('s')) {
+      return normalized.slice(0, -1)
+    }
+    return normalized
+  }
+
+  translateCountPhrase(words = []) {
+    if (words.length < 2) {
+      return null
+    }
+
+    const count = this.parseNumberWord(words[0])
+    if (!count) {
+      return null
+    }
+
+    const nounText = words.slice(1).join(' ')
+    const singular = this.singularizeWord(nounText)
+    const garoNoun = this.englishToGaro[singular] || this.nouns[singular]
+    const category =
+      this.englishToCategory[singular] ||
+      this.manualNounCategoryMap[singular] ||
+      'ge'
+
+    if (!garoNoun) {
+      return null
+    }
+
+    try {
+      return countNoun(garoNoun, count, category)
+    } catch (error) {
+      return null
+    }
+  }
+
+  // =====================================================
+  // NORMALIZE
+  // =====================================================
+
+  normalize(text) {
+
+    if (!text) return ''
+
+    return String(text)
+      .normalize('NFKC')
+      .toLowerCase()
+      .replace(/[.,!?‘’']/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
   }
 
   // =====================================================
@@ -494,6 +597,20 @@ class GaroTranslationEngine {
 
       const words =
         this.tokenize(normalized)
+
+      const countPhrase = this.translateCountPhrase(words)
+      if (countPhrase) {
+        return countPhrase
+      }
+
+      const hasVerb =
+        words.some(word =>
+          Boolean(this.detectVerb(word))
+        )
+
+      if (hasVerb) {
+        return this.buildSentence(words)
+      }
 
       return this.translateWithPhrases(words)
 
