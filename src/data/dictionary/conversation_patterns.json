@@ -1,0 +1,231 @@
+{
+  "_classifier": null,
+
+  "_description": "Conversational sentence patterns and reusable dialogue structures",
+
+  "_examples": [
+    {
+      "english": "What are you doing?",
+      "garo": "Na·a maiko dakenga?",
+      "hindi": "तुम क्या कर रहे हो?"
+    },
+    {
+      "english": "What are you doing? (to elder/father)",
+      "garo": "Baba mai dakeng?",
+      "hindi": "पिताजी क्या कर रहे हैं?"
+    },
+    {
+      "english": "I am eating food",
+      "garo": "Anga mi cha·enga",
+      "hindi": "मैं खाना खा रहा हूँ"
+    },
+    {
+      "english": "I am looking for my friend",
+      "garo": "Anga angni ripengko sandienga",
+      "hindi": "मैं अपने दोस्त को ढूंढ रहा हूँ"
+    }
+  ],
+
+  "what are you doing?": {
+    "garo": "Na·a maiko dakenga?",
+    "hindi": "तुम क्या कर रहे हो?",
+    "pattern": "question_continuous",
+    "breakdown": {
+      "na·a": "you",
+      "maiko": "what",
+      "dakenga": "doing"
+    }
+  },
+
+  "what are you doing": {
+    "garo": "Na·a maiko dakenga?",
+    "hindi": "तुम क्या कर रहे हो?",
+    "pattern": "question_continuous"
+  },
+
+  "what are you doing? (elder)": {
+    "garo": "Baba mai dakeng?",
+    "hindi": "पिताजी क्या कर रहे हैं?",
+    "pattern": "respectful_question"
+  },
+
+  "what are you eating?": {
+    "garo": "Na·a maiko cha·enga?",
+    "hindi": "तुम क्या खा रहे हो?",
+    "pattern": "question_continuous"
+  },
+
+  "what are you saying?": {
+    "garo": "Na·a maiko aganenga?",
+    "hindi": "तुम क्या बोल रहे हो?",
+    "pattern": "question_continuous"
+  },
+
+  "what are you looking for?": {
+    "garo": "Na·a maiko sandienga?",
+    "hindi": "तुम क्या ढूंढ रहे हो?",
+    "pattern": "question_search"
+  },
+
+  "where are you going?": {
+    "garo": "Na·a bano re·angenga?",
+    "hindi": "तुम कहाँ जा रहे हो?",
+    "pattern": "location_question"
+  },
+
+  "where are you coming from?": {
+    "garo": "Na·a bano-ni re·baenga?",
+    "hindi": "तुम कहाँ से आ रहे हो?",
+    "pattern": "origin_question"
+  },
+
+  "what happened?": {
+    "garo": "Maia ong·aha?",
+    "hindi": "क्या हुआ?",
+    "pattern": "past_question"
+  },
+
+  "i am eating food": {
+    "garo": "Anga mi cha·enga",
+    "hindi": "मैं खाना खा रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am eating rice": {
+    "garo": "Anga mi cha·enga",
+    "hindi": "मैं चावल खा रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am drinking water": {
+    "garo": "Anga chi ring·enga",
+    "hindi": "मैं पानी पी रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am going": {
+    "garo": "Anga re·angenga",
+    "hindi": "मैं जा रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am coming": {
+    "garo": "Anga re·baenga",
+    "hindi": "मैं आ रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am working": {
+    "garo": "Anga dakenga",
+    "hindi": "मैं काम कर रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am sleeping": {
+    "garo": "Anga tus·enga",
+    "hindi": "मैं सो रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am studying": {
+    "garo": "Anga pora·enga",
+    "hindi": "मैं पढ़ रहा हूँ",
+    "pattern": "present_continuous"
+  },
+
+  "i am looking for my friend": {
+    "garo": "Anga angni ripengko sandienga",
+    "hindi": "मैं अपने दोस्त को ढूंढ रहा हूँ",
+    "pattern": "searching_action"
+  },
+
+  "he is eating": {
+    "garo": "Ua cha·enga",
+    "hindi": "वह खा रहा है",
+    "pattern": "third_person_continuous"
+  },
+
+  "she is sleeping": {
+    "garo": "Ua tus·enga",
+    "hindi": "वह सो रही है",
+    "pattern": "third_person_continuous"
+  },
+
+  "they are playing": {
+    "garo": "Uamang kal·enga",
+    "hindi": "वे खेल रहे हैं",
+    "pattern": "plural_continuous"
+  },
+
+  "we are going": {
+    "garo": "An·ching re·angenga",
+    "hindi": "हम जा रहे हैं",
+    "pattern": "plural_continuous"
+  },
+
+  "what are they doing?": {
+    "garo": "Uamang maiko dakenga?",
+    "hindi": "वे क्या कर रहे हैं?",
+    "pattern": "plural_question"
+  },
+
+  "what are we doing?": {
+    "garo": "An·ching maiko dakenga?",
+    "hindi": "हम क्या कर रहे हैं?",
+    "pattern": "plural_question"
+  },
+
+  "are you eating?": {
+    "garo": "Na·a cha·enga ma?",
+    "hindi": "क्या तुम खा रहे हो?",
+    "pattern": "continuous_question"
+  },
+
+  "are you coming?": {
+    "garo": "Na·a re·baenga ma?",
+    "hindi": "क्या तुम आ रहे हो?",
+    "pattern": "continuous_question"
+  },
+
+  "are you going?": {
+    "garo": "Na·a re·angenga ma?",
+    "hindi": "क्या तुम जा रहे हो?",
+    "pattern": "continuous_question"
+  },
+
+  "what did you do?": {
+    "garo": "Na·a maiko dakaha?",
+    "hindi": "तुमने क्या किया?",
+    "pattern": "past_question"
+  },
+
+  "what will you do?": {
+    "garo": "Na·a maiko dakgen?",
+    "hindi": "तुम क्या करोगे?",
+    "pattern": "future_question"
+  },
+
+  "i will go": {
+    "garo": "Anga re·ang·gen",
+    "hindi": "मैं जाऊँगा",
+    "pattern": "future_statement"
+  },
+
+  "i will eat": {
+    "garo": "Anga cha·gen",
+    "hindi": "मैं खाऊँगा",
+    "pattern": "future_statement"
+  },
+
+  "i ate food": {
+    "garo": "Anga mi cha·aha",
+    "hindi": "मैंने खाना खाया",
+    "pattern": "past_statement"
+  },
+
+  "i came yesterday": {
+    "garo": "Anga mejal re·ba·aha",
+    "hindi": "मैं कल आया",
+    "pattern": "past_statement"
+  }
+}
