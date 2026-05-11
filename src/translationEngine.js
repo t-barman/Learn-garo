@@ -1,5 +1,5 @@
-import garoDictionary from '../garo_dictionary.json' assert { type: 'json' }
-import conversationPatterns from './data/dictionary/conversation_patterns.json' assert { type: 'json' }
+import garoDictionary from '../garo_dictionary.json'
+import conversationPatterns from './data/dictionary/conversation_patterns.json'
 import { countNoun } from './garo_classifier'
 import { analyzeSentence } from './gemini'
 
@@ -215,6 +215,20 @@ class GaroTranslationEngine {
     this.buildIndexes()
     this.buildConversationPatterns()
     this.buildPhraseMap()
+
+    // Bind methods to preserve `this` when functions are called externally
+    this.normalize = this.normalize.bind(this)
+    this.tokenize = this.tokenize.bind(this)
+    this.translate = this.translate.bind(this)
+    this.translateSentence = this.translateSentence.bind(this)
+    this.analyzeGrammar = this.analyzeGrammar.bind(this)
+    this.translateWord = this.translateWord.bind(this)
+    this.translateWithPhrases = this.translateWithPhrases.bind(this)
+    this.translateCountPhrase = this.translateCountPhrase.bind(this)
+    this.detectTense = this.detectTense.bind(this)
+    this.detectVerb = this.detectVerb.bind(this)
+    this.buildSentence = this.buildSentence.bind(this)
+    this.buildVerb = this.buildVerb.bind(this)
   }
 
   // =====================================================
