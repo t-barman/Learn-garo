@@ -5182,5 +5182,870 @@
       },
       "example": "Gong·grak·a = was quick"
     }
+  },
+  "verb_conjugations": {
+    "_description": "Garo verb conjugation patterns across tenses and moods",
+    "_classifier": null,
+    "eat (cha·na) - present tense": {
+      "infinitive": "cha·na",
+      "garo": "cha·na",
+      "english": "to eat (present)",
+      "forms": {
+        "simple": "cha·na",
+        "continuous": "cha·enga",
+        "command": "cha·bo",
+        "past": "cha·a",
+        "future": "cha·gen",
+        "negation": "cha·ja"
+      },
+      "examples": [
+        {
+          "sentence": "Anga mi cha·a",
+          "english": "I ate rice"
+        },
+        {
+          "sentence": "Na·a cha·enga",
+          "english": "You are eating"
+        },
+        {
+          "sentence": "Cha·bo!",
+          "english": "Eat!"
+        }
+      ]
+    },
+    "go (re·ang·na) - motion verb": {
+      "infinitive": "re·ang·na",
+      "garo": "re·ang·na",
+      "english": "to go (motion)",
+      "forms": {
+        "simple": "re·ang·na",
+        "continuous": "re·ang·enga",
+        "past": "re·ang·a",
+        "future": "re·ang·gen",
+        "command": "re·ang·bo"
+      },
+      "examples": [
+        {
+          "sentence": "Ana re·ang·a",
+          "english": "He went"
+        },
+        {
+          "sentence": "An·ching re·ang·enga",
+          "english": "We are going"
+        },
+        {
+          "sentence": "Na·a bano re·angenga?",
+          "english": "Where are you going?"
+        }
+      ]
+    },
+    "come (re·ba·na) - motion verb": {
+      "infinitive": "re·ba·na",
+      "garo": "re·ba·na",
+      "english": "to come (motion)",
+      "forms": {
+        "simple": "re·ba·na",
+        "continuous": "re·ba·enga",
+        "past": "re·ba·a",
+        "future": "re·ba·gen",
+        "command": "re·ba·bo"
+      },
+      "examples": [
+        {
+          "sentence": "Na·a re·ba·a",
+          "english": "You came"
+        },
+        {
+          "sentence": "Uamang re·ba·enga",
+          "english": "They are coming"
+        },
+        {
+          "sentence": "Re·ba·bo!",
+          "english": "Come!"
+        }
+      ]
+    },
+    "do/work (dak·na) - action verb": {
+      "infinitive": "dak·na",
+      "garo": "dak·na",
+      "english": "to do / to work",
+      "forms": {
+        "simple": "dak·na",
+        "continuous": "dak·enga",
+        "past": "dak·a",
+        "future": "dak·gen",
+        "command": "dak·bo"
+      },
+      "examples": [
+        {
+          "sentence": "Anga dak·a",
+          "english": "I did"
+        },
+        {
+          "sentence": "Kam dak·na",
+          "english": "to work / doing work"
+        },
+        {
+          "sentence": "Dak·bo!",
+          "english": "Do it!"
+        }
+      ]
+    },
+    "give (on·a) - transfer verb": {
+      "infinitive": "on·a",
+      "garo": "on·a",
+      "english": "to give / to offer",
+      "forms": {
+        "simple": "on·a",
+        "continuous": "on·enga",
+        "past": "on·aha",
+        "future": "on·gen",
+        "command": "on·bo"
+      },
+      "examples": [
+        {
+          "sentence": "Angna chi on·bo",
+          "english": "Give me water"
+        },
+        {
+          "sentence": "Ua angna ki·tap on·a",
+          "english": "He gives me a book"
+        },
+        {
+          "sentence": "On·bo nangna!",
+          "english": "Give it to him!"
+        }
+      ]
+    },
+    "be (ong·a) - state verb": {
+      "infinitive": "ong·a",
+      "garo": "ong·a",
+      "english": "to be / to exist",
+      "forms": {
+        "positive": "ong·a",
+        "negative": "ong·ja",
+        "example_positive": "Nama ong·a",
+        "example_negative": "Nama ong·ja"
+      },
+      "examples": [
+        {
+          "sentence": "Ia nama ong·a",
+          "english": "This is good"
+        },
+        {
+          "sentence": "Ia nama ong·ja",
+          "english": "This is not good"
+        },
+        {
+          "sentence": "Donga",
+          "english": "It exists / I have it"
+        }
+      ]
+    }
+  },
+  "grammar_patterns": {
+    "_description": "Common Garo grammatical structures and sentence patterns",
+    "_classifier": null,
+    "subject_object_verb_order": {
+      "pattern": "Subject (nominative) + Object (accusative) + Verb",
+      "english": "SOV word order",
+      "example": "Anga mi cha·a = I rice ate = I ate rice"
+    },
+    "question_formation": {
+      "pattern": "Add '?' or use question word (bano=where, maia=what, sawa=who)",
+      "english": "Form questions with particles or question words",
+      "examples": [
+        "Ia maia? = What is this?",
+        "Na·a bano re·angenga? = Where are you going?",
+        "Ua sawa? = Who is he?"
+      ]
+    },
+    "possession": {
+      "pattern": "[Possessive pronoun] + noun",
+      "english": "Show possession with possessive pronouns",
+      "examples": [
+        "Angni nok = My house",
+        "Nang·ni apa = Your father",
+        "Uni chi = His/Her water"
+      ]
+    },
+    "negation": {
+      "pattern": "Verb + [·ja suffix] or use 'dongja' (don't have)",
+      "english": "Negate verbs with ·ja suffix",
+      "examples": [
+        "Cha·ja = don't eat",
+        "Ong·ja = is not / doesn't exist",
+        "Dongja = don't have"
+      ]
+    },
+    "verb_particles": {
+      "pattern": "Verbs take aspect/tense particles",
+      "english": "Verb modification particles",
+      "particles": {
+        "·na": "infinitive/simple present",
+        "·a": "past tense",
+        "·enga": "continuous/present participle",
+        "·gen": "future tense",
+        "·bo": "imperative/command",
+        "·ja": "negation",
+        "·gipa": "agent/doer (-er, -or suffix)"
+      }
+    },
+    "noun_classifiers": {
+      "pattern": "[Noun] + [Classifier] + [Number]",
+      "english": "Garo requires classifiers with counting",
+      "examples": [
+        "Mang-sa = one (classifier for animals)",
+        "Sak-gni = two (classifier for people)",
+        "King-gittam = three (classifier for flat objects)",
+        "Ge-bonga = five (classifier for things)"
+      ]
+    }
+  },
+  "conversational_phrases": {
+    "_description": "Common phrases organized by conversation context",
+    "_classifier": null,
+    "greetings_and_farewells": {
+      "english": "Greetings & Goodbyes",
+      "garo_phrases": [
+        {
+          "garo": "Salam / Namengama",
+          "english": "Hello / Greetings"
+        },
+        {
+          "garo": "Pringnam",
+          "english": "Good morning"
+        },
+        {
+          "garo": "Salnam",
+          "english": "Good afternoon"
+        },
+        {
+          "garo": "Attamnam",
+          "english": "Good evening"
+        },
+        {
+          "garo": "Walnam",
+          "english": "Good night"
+        },
+        {
+          "garo": "Re·ang-na / Nam-en-dongbo",
+          "english": "Goodbye / See you"
+        },
+        {
+          "garo": "Pil·tai-grongna",
+          "english": "See you again"
+        },
+        {
+          "garo": "Rimchaksoa",
+          "english": "Welcome"
+        }
+      ]
+    },
+    "politeness_and_requests": {
+      "english": "Politeness Phrases & Requests",
+      "garo_phrases": [
+        {
+          "garo": "Ka·sapae",
+          "english": "Please"
+        },
+        {
+          "garo": "Mitela",
+          "english": "Thank you"
+        },
+        {
+          "garo": "Kema-bi·a",
+          "english": "Sorry / Forgive me"
+        },
+        {
+          "garo": "Angko kema-watbo",
+          "english": "Excuse me"
+        },
+        {
+          "garo": "Angko gisik-o mia",
+          "english": "I don't mind"
+        },
+        {
+          "garo": "Oe, mitela",
+          "english": "Yes, thank you"
+        },
+        {
+          "garo": "Ong·ja, mitela",
+          "english": "No, thank you"
+        }
+      ]
+    },
+    "asking_how_are_you": {
+      "english": "Health & Status Questions",
+      "garo_phrases": [
+        {
+          "garo": "Na·a namengama?",
+          "english": "How are you?"
+        },
+        {
+          "garo": "Na·a maini ong·a?",
+          "english": "How are you doing?"
+        },
+        {
+          "garo": "Anga namenga",
+          "english": "I am fine"
+        },
+        {
+          "garo": "Nama ong·a",
+          "english": "It is good / All is well"
+        },
+        {
+          "garo": "Anga mataha",
+          "english": "I am sick / I hurt"
+        },
+        {
+          "garo": "Na·a maia?",
+          "english": "What about you?"
+        }
+      ]
+    },
+    "introductions": {
+      "english": "Introduction Phrases",
+      "garo_phrases": [
+        {
+          "garo": "Na·ani bimungara maia?",
+          "english": "What is your name?"
+        },
+        {
+          "garo": "Angni bimungara [name]",
+          "english": "My name is..."
+        },
+        {
+          "garo": "Na·a bano-ni?",
+          "english": "Where are you from?"
+        },
+        {
+          "garo": "Anga ...-ni",
+          "english": "I am from..."
+        },
+        {
+          "garo": "Anga English-ni",
+          "english": "I am English"
+        },
+        {
+          "garo": "Na·a maia dak·gipa?",
+          "english": "What do you do?"
+        },
+        {
+          "garo": "Anga [occupation] dak·gipa",
+          "english": "I am a..."
+        }
+      ]
+    },
+    "directions_and_location": {
+      "english": "Asking for Directions",
+      "garo_phrases": [
+        {
+          "garo": "Skul bano?",
+          "english": "Where is the school?"
+        },
+        {
+          "garo": "Anti bano re·na?",
+          "english": "How do I get to the market?"
+        },
+        {
+          "garo": "Iano",
+          "english": "Here"
+        },
+        {
+          "garo": "Uano",
+          "english": "There"
+        },
+        {
+          "garo": "Bano-ni",
+          "english": "Where"
+        },
+        {
+          "garo": "[Place]-chi re·na",
+          "english": "Go to [place]"
+        },
+        {
+          "garo": "Agata re·ang·bo",
+          "english": "Go straight"
+        },
+        {
+          "garo": "Grom-ni re·ang·bo",
+          "english": "Turn right"
+        },
+        {
+          "garo": "Grom-ma re·ang·bo",
+          "english": "Turn left"
+        }
+      ]
+    },
+    "daily_activities": {
+      "english": "Daily Activities & Questions",
+      "garo_phrases": [
+        {
+          "garo": "Basako maia dak·na?",
+          "english": "What are you doing?"
+        },
+        {
+          "garo": "Anga school-chi re·ang·a",
+          "english": "I went to school"
+        },
+        {
+          "garo": "Anga ki·tap porai·a",
+          "english": "I studied books"
+        },
+        {
+          "garo": "Agna mi cha·enga",
+          "english": "I was eating"
+        },
+        {
+          "garo": "Na·a tus·a?",
+          "english": "Did you sleep?"
+        },
+        {
+          "garo": "Mi cha·na jong",
+          "english": "Let's eat"
+        },
+        {
+          "garo": "Chi ring·bo jong",
+          "english": "Let's drink water"
+        }
+      ]
+    },
+    "food_and_eating": {
+      "english": "Food & Dining",
+      "garo_phrases": [
+        {
+          "garo": "Mi cha·bo",
+          "english": "Eat rice"
+        },
+        {
+          "garo": "Cha·na kong",
+          "english": "Having eaten"
+        },
+        {
+          "garo": "Anti-chi cha·na jong",
+          "english": "Let's eat at the market"
+        },
+        {
+          "garo": "Dik·ke maikol sa·dika",
+          "english": "The curry is spicy"
+        },
+        {
+          "garo": "Mi nama ong·a",
+          "english": "The food is good"
+        },
+        {
+          "garo": "Chi ring·bo",
+          "english": "Drink water"
+        },
+        {
+          "garo": "Salt on·bo",
+          "english": "Pass the salt please"
+        }
+      ]
+    },
+    "shopping_at_market": {
+      "english": "Shopping & Markets",
+      "garo_phrases": [
+        {
+          "garo": "Maia bre·na?",
+          "english": "What do you want to buy?"
+        },
+        {
+          "garo": "Mi bre·na jong",
+          "english": "Let's buy rice"
+        },
+        {
+          "garo": "Kima ong·a?",
+          "english": "How much is it?"
+        },
+        {
+          "garo": "Meng-sa kung nang·na on·bo",
+          "english": "Give me one apple"
+        },
+        {
+          "garo": "Daka sa·a",
+          "english": "That is expensive"
+        },
+        {
+          "garo": "Dak-chi-ku sa·a",
+          "english": "That is cheap"
+        },
+        {
+          "garo": "Anti-chi maia dong·a",
+          "english": "What is there in the market?"
+        }
+      ]
+    },
+    "love_and_relationships": {
+      "english": "Love & Relationships",
+      "garo_phrases": [
+        {
+          "garo": "Anga nang·na ka·sa·a",
+          "english": "I love you"
+        },
+        {
+          "garo": "Ka·sa·ani donga",
+          "english": "There is love"
+        },
+        {
+          "garo": "Na·a anga ka·sa·a?",
+          "english": "Do you love me?"
+        },
+        {
+          "garo": "Oe, anga nang·na ka·sa·a",
+          "english": "Yes, I love you"
+        },
+        {
+          "garo": "Angni jong·gipa",
+          "english": "My friend"
+        },
+        {
+          "garo": "Angni mia·bi",
+          "english": "My wife"
+        },
+        {
+          "garo": "Angni apa",
+          "english": "My father"
+        }
+      ]
+    },
+    "time_expressions": {
+      "english": "Time Expressions",
+      "garo_phrases": [
+        {
+          "garo": "Pring",
+          "english": "Morning"
+        },
+        {
+          "garo": "Sal",
+          "english": "Afternoon"
+        },
+        {
+          "garo": "Attam",
+          "english": "Evening"
+        },
+        {
+          "garo": "Wal",
+          "english": "Night"
+        },
+        {
+          "garo": "Me·ja",
+          "english": "Yesterday"
+        },
+        {
+          "garo": "Iano",
+          "english": "Today"
+        },
+        {
+          "garo": "Grongna",
+          "english": "Tomorrow"
+        },
+        {
+          "garo": "Pil-tai",
+          "english": "Next time / Later"
+        },
+        {
+          "garo": "Agong",
+          "english": "Now / This time"
+        },
+        {
+          "garo": "Basako",
+          "english": "What time / When"
+        }
+      ]
+    },
+    "emergency_expressions": {
+      "english": "Emergency & Important",
+      "garo_phrases": [
+        {
+          "garo": "Madengma!",
+          "english": "Help!"
+        },
+        {
+          "garo": "Dak·chak·bo!",
+          "english": "Help me!"
+        },
+        {
+          "garo": "Angko kema·a",
+          "english": "I am hurt"
+        },
+        {
+          "garo": "Doktor jong·bo!",
+          "english": "Call a doctor!"
+        },
+        {
+          "garo": "Mataha!",
+          "english": "It hurts!"
+        },
+        {
+          "garo": "Angko sa·dika",
+          "english": "I am in pain"
+        },
+        {
+          "garo": "Police jong·bo",
+          "english": "Call police"
+        }
+      ]
+    },
+    "affirmative_negative": {
+      "english": "Yes / No & Agreement",
+      "garo_phrases": [
+        {
+          "garo": "Oe",
+          "english": "Yes"
+        },
+        {
+          "garo": "Ong·ja / Ong·ja, u·ija",
+          "english": "No / No, I don't know"
+        },
+        {
+          "garo": "Nama ong·a",
+          "english": "That's good / Agreed"
+        },
+        {
+          "garo": "Anga uia",
+          "english": "I know"
+        },
+        {
+          "garo": "Anga u·ija",
+          "english": "I don't know"
+        },
+        {
+          "garo": "Maia?",
+          "english": "What? / Huh?"
+        },
+        {
+          "garo": "Angan·bo",
+          "english": "I understand"
+        },
+        {
+          "garo": "Angan·ja",
+          "english": "I don't understand"
+        }
+      ]
+    }
+  },
+  "idiomatic_expressions": {
+    "_description": "Garo idioms, cultural phrases, and figurative expressions",
+    "_classifier": null,
+    "figurative_language": [
+      {
+        "garo": "Gisik jrim·a",
+        "literal": "Heart is heavy",
+        "english": "Feeling sad / depressed",
+        "example": "Anga gisik jrim·a ong·a = I am feeling very sad"
+      },
+      {
+        "garo": "Gisik nima",
+        "literal": "Heart is light",
+        "english": "Feeling happy / relieved",
+        "example": "Ua gisik nima ong·a = He is very happy"
+      },
+      {
+        "garo": "Ok gisik",
+        "literal": "Belly/stomach thinking",
+        "english": "Thinking it over / considering",
+        "example": "Anga ok gisik dak·a = I thought about it"
+      },
+      {
+        "garo": "Bol tang·na",
+        "literal": "Break the wood",
+        "english": "Work hard / struggle",
+        "example": "Kami bol tang·a = We worked very hard"
+      },
+      {
+        "garo": "Dak·gipa meng·sa",
+        "literal": "One breath / one person working",
+        "english": "Acting alone / no help",
+        "example": "Anga meng·sa dak·a = I did it alone"
+      }
+    ],
+    "cultural_expressions": [
+      {
+        "garo": "Hai dong",
+        "english": "Sacred oath / promise",
+        "usage": "Making a solemn promise",
+        "example": "Hai dong rakka = Making a sacred vow"
+      },
+      {
+        "garo": "Garo-sa jong·gipa",
+        "english": "Garo person / Garo friend",
+        "usage": "Referring to Garo people",
+        "example": "Anga Garo-sa jong·gipa = I am a Garo person"
+      },
+      {
+        "garo": "A·chik ku·sik",
+        "english": "Garo language",
+        "usage": "Speaking about Garo language",
+        "example": "A·chik ku·sik porai·na = Learning Garo language"
+      },
+      {
+        "garo": "Nongkrem dong",
+        "english": "Sacred ritual dance",
+        "usage": "Festival or celebration",
+        "example": "Nongkrem dong dak·a = Performing the sacred dance"
+      }
+    ],
+    "proverbs_and_sayings": [
+      {
+        "garo": "Daba·chu nang·sa-gong ka·sa·ani",
+        "english": "Patience and love bring victory",
+        "meaning": "Virtue and perseverance",
+        "example": "Daba·chu nang·sa-gong ka·sa·ani dak·gipa ong·a = A patient and loving person will succeed"
+      },
+      {
+        "garo": "Mi sa·dik-chi gisik sa·dik",
+        "english": "Hungry stomach, troubled mind",
+        "meaning": "Basic needs must be met first",
+        "example": "Mi sa·dik-chi gisik sa·dik ong·a = When you're hungry, your mind troubles"
+      }
+    ]
+  },
+  "sentence_structures": {
+    "_description": "Common sentence patterns in Garo with examples",
+    "_classifier": null,
+    "simple_present": {
+      "pattern": "[Subject] [Object] [Verb-na/ja]",
+      "examples": [
+        {
+          "sentence": "Anga mi cha·na",
+          "english": "I eat rice",
+          "breakdown": "I + rice + eat"
+        },
+        {
+          "sentence": "Na·a chi ring·na",
+          "english": "You drink water",
+          "breakdown": "You + water + drink"
+        },
+        {
+          "sentence": "Ua dak·na",
+          "english": "He does/works",
+          "breakdown": "He + do/work"
+        }
+      ]
+    },
+    "simple_past": {
+      "pattern": "[Subject] [Object] [Verb-a]",
+      "examples": [
+        {
+          "sentence": "Anga mi cha·a",
+          "english": "I ate rice",
+          "breakdown": "I + rice + ate"
+        },
+        {
+          "sentence": "Na·a re·ba·a",
+          "english": "You came",
+          "breakdown": "You + came"
+        },
+        {
+          "sentence": "Uamang re·ang·a",
+          "english": "They went",
+          "breakdown": "They + went"
+        }
+      ]
+    },
+    "continuous_present": {
+      "pattern": "[Subject] [Object] [Verb-enga]",
+      "examples": [
+        {
+          "sentence": "Agna mi cha·enga",
+          "english": "I am eating rice"
+        },
+        {
+          "sentence": "Na·a re·ang·enga",
+          "english": "You are going"
+        },
+        {
+          "sentence": "Do·o bil·enga",
+          "english": "The bird is flying"
+        }
+      ]
+    },
+    "future_tense": {
+      "pattern": "[Subject] [Object] [Verb-gen]",
+      "examples": [
+        {
+          "sentence": "Anga mi cha·gen",
+          "english": "I will eat rice"
+        },
+        {
+          "sentence": "Na·a re·ba·gen",
+          "english": "You will come"
+        },
+        {
+          "sentence": "An·ching re·ang·gen",
+          "english": "We will go"
+        }
+      ]
+    },
+    "interrogative": {
+      "pattern": "[Subject] [Object] [Verb] + [?]",
+      "examples": [
+        {
+          "sentence": "Na·a bano re·angenga?",
+          "english": "Where are you going?"
+        },
+        {
+          "sentence": "Ia maia?",
+          "english": "What is this?"
+        },
+        {
+          "sentence": "Na·a cha·enga?",
+          "english": "Are you eating?"
+        }
+      ]
+    },
+    "imperative_commands": {
+      "pattern": "[Object] [Verb-bo]",
+      "examples": [
+        {
+          "sentence": "Mi cha·bo",
+          "english": "Eat rice!"
+        },
+        {
+          "sentence": "Re·ba·bo",
+          "english": "Come!"
+        },
+        {
+          "sentence": "Kat·bo",
+          "english": "Run!"
+        }
+      ]
+    },
+    "negation": {
+      "pattern": "[Subject] [Object] [Verb-ja]",
+      "examples": [
+        {
+          "sentence": "Anga mi cha·ja",
+          "english": "I don't eat rice"
+        },
+        {
+          "sentence": "Nama ong·ja",
+          "english": "It is not good"
+        },
+        {
+          "sentence": "Ua re·ba·ja",
+          "english": "He doesn't come"
+        }
+      ]
+    },
+    "possession": {
+      "pattern": "[Possessive-pronoun] [Noun]",
+      "examples": [
+        {
+          "sentence": "Angni nok",
+          "english": "My house"
+        },
+        {
+          "sentence": "Nang·ni chi",
+          "english": "Your water"
+        },
+        {
+          "sentence": "Uni apa",
+          "english": "His/Her father"
+        }
+      ]
+    }
   }
 }
