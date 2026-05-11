@@ -5,10 +5,6 @@ class GaroTranslationEngine {
 
   constructor() {
 
-    // =====================================================
-    // SAFE DICTIONARY LOAD
-    // =====================================================
-
     this.dictionary =
       typeof garoDictionary === 'object' &&
       garoDictionary !== null
@@ -142,15 +138,6 @@ class GaroTranslationEngine {
       "let's run":
         "Hai katha",
 
-      "let's eat food":
-        "Hai, mi cha·na",
-
-      "let's eat rice":
-        "Hai, mi cha·na",
-
-      "let's go eat":
-        "Hai, mi cha·na re·na",
-
       'drink water':
         'Chi ringbo',
 
@@ -196,10 +183,6 @@ class GaroTranslationEngine {
       'you are eating rice':
         'Na·a mi cha·enga',
     }
-
-    // =====================================================
-    // BUILD SYSTEMS
-    // =====================================================
 
     this.buildIndexes()
     this.buildConversationPatterns()
@@ -495,20 +478,12 @@ class GaroTranslationEngine {
         return ''
       }
 
-      // =================================================
-      // CONVERSATION PATTERNS
-      // =================================================
-
       if (
         this.conversationMap?.[normalized]
       ) {
 
         return this.conversationMap[normalized]
       }
-
-      // =================================================
-      // EXACT PHRASES
-      // =================================================
 
       if (
         this.phraseMap?.[normalized]
@@ -555,6 +530,64 @@ class GaroTranslationEngine {
       )
 
       return sentence
+    }
+  }
+
+  // =====================================================
+  // ANALYZE GRAMMAR
+  // =====================================================
+
+  analyzeGrammar(text = '') {
+
+    try {
+
+      const normalized =
+        this.normalize(text)
+
+      const words =
+        this.tokenize(normalized)
+
+      return {
+
+        original: text,
+
+        normalized,
+
+        wordCount: words.length,
+
+        words,
+
+        tense:
+          normalized.includes('enga')
+            ? 'present_continuous'
+            : normalized.includes('aha')
+            ? 'past'
+            : normalized.includes('gen')
+            ? 'future'
+            : 'unknown',
+
+        isQuestion:
+          normalized.includes('?'),
+
+        hasConversationPattern:
+          !!this.conversationMap?.[normalized],
+
+        translation:
+          this.translate(text),
+      }
+
+    } catch (error) {
+
+      console.error(
+        'Grammar analysis failed:',
+        error
+      )
+
+      return {
+
+        original: text,
+        error: true
+      }
     }
   }
 }
