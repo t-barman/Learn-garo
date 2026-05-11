@@ -457,6 +457,21 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
+  // NORMALIZE
+
+  normalize(text) {
+
+    if (!text) return ''
+
+    return String(text)
+      .normalize('NFKC')
+      .toLowerCase()
+      .replace(/[.,!?‘’']/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+
+  // =====================================================
   // TOKENIZE
   // =====================================================
 
