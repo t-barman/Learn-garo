@@ -387,7 +387,7 @@ class GaroTranslationEngine {
     return String(text)
       .normalize('NFKC')
       .toLowerCase()
-      .replace(/[.,!?]/g, '')
+      .replace(/[.,!?‘’']/g, '')
       .replace(/\s+/g, ' ')
       .trim()
   }
