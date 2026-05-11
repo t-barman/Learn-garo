@@ -236,6 +236,16 @@
     "there": {
       "garo": "Uano",
       "hindi": "वहाँ"
+    },
+    "you (subject)": {
+      "garo": "Na·a",
+      "hindi": "तुम / आप"
+    },
+    "you (subject) [new]": {
+      "garo": "na·a",
+      "english": "you (subject)",
+      "pos": "pronoun",
+      "example": "Na·a bano re·ang·a? = Where did you go?"
     }
   },
   "possessive_pronouns": {
@@ -314,6 +324,16 @@
     "ourselves": {
       "garo": "An·ching an·tangtang",
       "hindi": "हम खुद"
+    },
+    "your (possessive)": {
+      "garo": "Nang·ni",
+      "hindi": "तुम्हारा / आपका"
+    },
+    "your (possessive) [new]": {
+      "garo": "nang·ni",
+      "english": "your (possessive)",
+      "pos": "adjective",
+      "example": "Nang·ni nok = your house"
     }
   },
   "common_phrases": {
@@ -456,6 +476,30 @@
     "fine, and you?": {
       "garo": "Namenga, na·ara?",
       "hindi": "ठीक हूँ, और आप?"
+    },
+    "hai": {
+      "garo": "Hai"
+    },
+    "is not": {
+      "garo": "Ong·ja"
+    },
+    "ong·ja": {
+      "garo": "ong·ja",
+      "english": "is not (negation of 'to be')",
+      "pos": "verb",
+      "example": "Nama ong·ja = it is not good"
+    },
+    "oe": {
+      "garo": "oe",
+      "english": "yes (affirmative)",
+      "pos": "interjection",
+      "example": "Oe = Yes"
+    },
+    "dak·ja": {
+      "garo": "dak·ja",
+      "english": "don't do / not doing",
+      "pos": "verb",
+      "example": "Indake dak·ja = don't do like that"
     }
   },
   "question_words": {
@@ -856,6 +900,24 @@
     "rabbit": {
       "garo": "Sapau",
       "hindi": "खरगोश"
+    },
+    "bear (animal)": {
+      "garo": "Mapil"
+    },
+    "bird": {
+      "garo": "Do·o"
+    },
+    "mapil": {
+      "garo": "mapil",
+      "english": "bear (animal)",
+      "pos": "noun",
+      "example": "Mapil mang·sa = one bear"
+    },
+    "jong": {
+      "garo": "jong",
+      "english": "younger brother",
+      "pos": "noun",
+      "example": "Ang·ni jong = my younger brother"
     }
   },
   "birds": {
@@ -926,6 +988,15 @@
     "sparrow": {
       "garo": "Do·matchi",
       "hindi": "गौरैया"
+    },
+    "bird": {
+      "garo": "Do·o"
+    },
+    "do·o": {
+      "garo": "do·o",
+      "english": "bird",
+      "pos": "noun",
+      "example": "Do·o mang·sa = one bird"
     }
   },
   "insects_and_aquatic": {
@@ -1012,6 +1083,12 @@
     "worm / caterpillar": {
       "garo": "Jo·ong",
       "hindi": "कीड़ा / सुँडी"
+    },
+    "na·tok": {
+      "garo": "na·tok",
+      "english": "fish",
+      "pos": "noun",
+      "example": "Na·tok mang·gittam = three fish"
     }
   },
   "emotions_and_feelings": {
@@ -1122,6 +1199,26 @@
     "courage": {
       "garo": "Ka·rakani",
       "hindi": "साहस"
+    },
+    "love / affection": {
+      "garo": "Ka·sa·ani"
+    },
+    "ka·sa·ani": {
+      "garo": "ka·sa·ani",
+      "english": "love / affection",
+      "pos": "noun",
+      "example": "Ka·sa·ani donga = there is love"
+    },
+    "ka·sa·na": {
+      "garo": "ka·sa·na",
+      "english": "to love / to care for",
+      "pos": "verb",
+      "tenses": {
+        "past": "ka·sa·aha",
+        "continuous": "ka·sa·enga",
+        "future": "ka·sa·gen"
+      },
+      "example": "Anga nang·na ka·sa·a = I love you"
     }
   },
   "family_members": {
@@ -1282,6 +1379,27 @@
     "heart": {
       "garo": "Ka·tong",
       "hindi": "दिल"
+    },
+    "stomach / belly": {
+      "garo": "Ok"
+    },
+    "ok": {
+      "garo": "ok",
+      "english": "stomach / belly",
+      "pos": "noun",
+      "example": "Ok sa·a = stomach hurts"
+    },
+    "kimil": {
+      "garo": "kimil",
+      "english": "hair / fur / feathers",
+      "pos": "noun",
+      "example": "Do·oni kimil = bird feathers"
+    },
+    "mikron": {
+      "garo": "mikron",
+      "english": "eye",
+      "pos": "noun",
+      "example": "Mikron gisim = black eye"
     }
   },
   "colors": {
@@ -1660,6 +1778,165 @@
     "heal": {
       "garo": "An·sengpila",
       "hindi": "ठीक होना"
+    },
+    "to look / to see / to watch": {
+      "garo": "Ni·na"
+    },
+    "to be / to exist": {
+      "garo": "Ong·a"
+    },
+    "to study / to read": {
+      "garo": "Porai·na"
+    },
+    "don't do / not doing": {
+      "garo": "Dak·ja"
+    },
+    "to come": {
+      "garo": "Re·ba·na"
+    },
+    "to go": {
+      "garo": "Re·ang·na"
+    },
+    "to drink": {
+      "garo": "Ring·na"
+    },
+    "to stop / to pause": {
+      "garo": "Dong·dik·na"
+    },
+    "to run": {
+      "garo": "Kat·na"
+    },
+    "to carry (usually a child on the back)": {
+      "garo": "Ba·na"
+    },
+    "to buy / to purchase": {
+      "garo": "Bre·na"
+    },
+    "to eat / consume": {
+      "garo": "Cha·na"
+    },
+    "to work / to do / to make": {
+      "garo": "Dak·na"
+    },
+    "to help / to assist": {
+      "garo": "Dak·chak·na"
+    },
+    "exists / is present / have": {
+      "garo": "Dong·a"
+    },
+    "to dig / to excavate": {
+      "garo": "Cho·na"
+    },
+    "to speak / to say / to tell": {
+      "garo": "Agan·na"
+    },
+    "to be quick / to be active": {
+      "garo": "Gong·grak·na"
+    },
+    "to love / to care for": {
+      "garo": "Ka·sa·na"
+    },
+    "to cut / to chop": {
+      "garo": "Den·na"
+    },
+    "re·ba·na": {
+      "garo": "re·ba·na",
+      "english": "to come",
+      "pos": "verb",
+      "tenses": {
+        "past": "re·ba·a",
+        "continuous": "re·ba·enga",
+        "future": "re·ba·gen",
+        "command": "re·ba·bo"
+      },
+      "example": "Na·a re·ba·a = You came"
+    },
+    "re·ang·na": {
+      "garo": "re·ang·na",
+      "english": "to go",
+      "pos": "verb",
+      "tenses": {
+        "past": "re·ang·a",
+        "continuous": "re·ang·enga",
+        "future": "re·ang·gen"
+      },
+      "example": "Apa re·ang·a = Father went"
+    },
+    "ring·na": {
+      "garo": "ring·na",
+      "english": "to drink",
+      "pos": "verb",
+      "tenses": {
+        "past": "ring·a",
+        "future": "ring·gen",
+        "command": "ring·bo"
+      },
+      "example": "Chi ring·bo = Drink water"
+    },
+    "kat·na": {
+      "garo": "kat·na",
+      "english": "to run",
+      "pos": "verb",
+      "tenses": {
+        "past": "kat·a",
+        "continuous": "kat·enga",
+        "future": "kat·gen",
+        "command": "kat·bo"
+      },
+      "example": "Kat·bo = Run"
+    },
+    "dak·na": {
+      "garo": "dak·na",
+      "english": "to work / to do / to make",
+      "pos": "verb",
+      "tenses": {
+        "past": "dak·a",
+        "continuous": "dak·enga",
+        "future": "dak·gen",
+        "command": "dak·bo"
+      },
+      "example": "Kam dak·gipa = a worker"
+    },
+    "agan·na": {
+      "garo": "agan·na",
+      "english": "to speak / to say / to tell",
+      "pos": "verb",
+      "tenses": {
+        "past": "agan·a",
+        "continuous": "agan·enga",
+        "future": "agan·gen"
+      },
+      "example": "Nama agan·ani = good speech"
+    },
+    "ni·na": {
+      "garo": "ni·na",
+      "english": "to look / to see / to watch",
+      "pos": "verb",
+      "tenses": {
+        "past": "ni·a",
+        "future": "ni·gen",
+        "command": "ni·bo"
+      },
+      "example": "Ni·bo = Look"
+    },
+    "on·a": {
+      "garo": "on·a",
+      "english": "to give / to offer",
+      "pos": "verb",
+      "tenses": {
+        "past": "on·aha",
+        "continuous": "on·enga",
+        "future": "on·gen",
+        "command": "on·bo",
+        "past_question": "on·ama?"
+      },
+      "example": "Ang-na chi on·bo = Give me water"
+    },
+    "ong·a": {
+      "garo": "ong·a",
+      "english": "to be / to exist",
+      "pos": "verb",
+      "example": "Nama ong·a = it is good"
     }
   },
   "verbs_past": {
@@ -2130,6 +2407,40 @@
     "stale": {
       "garo": "Gitcham",
       "hindi": "बासी"
+    },
+    "better (comparative)": {
+      "garo": "Nam·bata"
+    },
+    "very good / best": {
+      "garo": "Nam·bea"
+    },
+    "beautiful / pretty / handsome": {
+      "garo": "Nito·a",
+      "hindi": "सुंदर"
+    },
+    "handy": {
+      "garo": "Nito·bata"
+    },
+    "heavy / weighty": {
+      "garo": "Jrim·a"
+    },
+    "very heavy": {
+      "garo": "Jrim·bea"
+    },
+    "good / fine / well": {
+      "garo": "nama",
+      "english": "good / fine / well",
+      "pos": "adjective",
+      "comparative": "nam-bata",
+      "superlative": "nam-be-a",
+      "example": "Nam-gipa ong·a = It is good"
+    },
+    "beautiful / pretty": {
+      "garo": "nito·a",
+      "english": "beautiful / pretty / handsome",
+      "pos": "adjective",
+      "comparative": "nito·bata",
+      "example": "Nito·a ong·a = it is beautiful"
     }
   },
   "tastes_and_sensations": {
@@ -2306,6 +2617,27 @@
     "leaf": {
       "garo": "Bijak",
       "hindi": "पत्ता"
+    },
+    "sky / heaven": {
+      "garo": "Salgi"
+    },
+    "chi": {
+      "garo": "chi",
+      "english": "water",
+      "pos": "noun",
+      "example": "Chi on·bo = give water"
+    },
+    "asky": {
+      "garo": "asky",
+      "english": "star",
+      "pos": "noun",
+      "example": "Asky ming·sa = one star"
+    },
+    "salgi": {
+      "garo": "salgi",
+      "english": "sky / heaven",
+      "pos": "noun",
+      "example": "Salgi-chi = in the sky"
     }
   },
   "household_items": {
@@ -2460,6 +2792,15 @@
     "boat": {
       "garo": "Ring",
       "hindi": "नाव"
+    },
+    "house / home / building": {
+      "garo": "Nok"
+    },
+    "nok": {
+      "garo": "nok",
+      "english": "house / home / building",
+      "pos": "noun",
+      "example": "Nok-chi re·ba-bo = come home"
     }
   },
   "time_and_days": {
@@ -2524,7 +2865,7 @@
       "hindi": "आज"
     },
     "yesterday": {
-      "garo": "Mejal",
+      "garo": "Mejal / Me·ja",
       "hindi": "कल (बीता)"
     },
     "tomorrow": {
@@ -2638,6 +2979,18 @@
     "sunday": {
       "garo": "Robibara ari",
       "hindi": "रविवार"
+    },
+    "pring": {
+      "garo": "pring",
+      "english": "morning",
+      "pos": "noun",
+      "example": "Pring-ni baji chet = 8 o'clock in the morning"
+    },
+    "me·ja": {
+      "garo": "me·ja",
+      "english": "yesterday",
+      "pos": "noun",
+      "example": "Me·ja pring = yesterday morning"
     }
   },
   "clothing_and_wearables": {
@@ -2778,6 +3131,30 @@
     "hospital": {
       "garo": "Hospital / Sam-nok",
       "hindi": "अस्पताल"
+    },
+    "jhum field / farm": {
+      "garo": "A·ba"
+    },
+    "market / bazaar": {
+      "garo": "Anti"
+    },
+    "anti": {
+      "garo": "anti",
+      "english": "market / bazaar",
+      "pos": "noun",
+      "example": "Anti-chi re·na = to go to the market"
+    },
+    "a·a": {
+      "garo": "a·a",
+      "english": "earth / land / soil",
+      "pos": "noun",
+      "example": "A·ani nok = earthen house"
+    },
+    "a·ba": {
+      "garo": "a·ba",
+      "english": "jhum field / farm",
+      "pos": "noun",
+      "example": "A·ba o·na = to clear/open a forest for cultivation"
     }
   },
   "directions_and_positions": {
@@ -3108,6 +3485,36 @@
     "mistake": {
       "garo": "Gualani",
       "hindi": "गलती"
+    },
+    "porai·na": {
+      "garo": "porai·na",
+      "english": "to study / to read",
+      "pos": "verb",
+      "tenses": {
+        "past": "porai·a",
+        "continuous": "porai·enga",
+        "future": "porai·gen",
+        "command": "porai·bo"
+      },
+      "example": "Ki·tap porai·a = read a book"
+    },
+    "ki·tap": {
+      "garo": "ki·tap",
+      "english": "book",
+      "pos": "noun",
+      "example": "Ki·tap king-sa = one book"
+    },
+    "ku·sik": {
+      "garo": "ku·sik",
+      "english": "language / speech / mouth",
+      "pos": "noun",
+      "example": "A·chik ku·sik = Garo language"
+    },
+    "golpo": {
+      "garo": "golpo",
+      "english": "story / tale / narrative",
+      "pos": "noun",
+      "example": "Golpo agan·bo = Tell a story"
     }
   },
   "health_and_medical": {
@@ -3356,6 +3763,48 @@
     "firewood": {
       "garo": "Am·bol",
       "hindi": "लकड़ी (जलाऊ)"
+    },
+    "rice (cooked) / food": {
+      "garo": "Mi"
+    },
+    "mi": {
+      "garo": "mi",
+      "english": "rice (cooked) / food",
+      "pos": "noun",
+      "example": "Mi cha·na = to eat rice"
+    },
+    "mi·cha·na": {
+      "garo": "cha·na",
+      "english": "to eat / consume",
+      "pos": "verb",
+      "tenses": {
+        "past": "cha·a",
+        "continuous": "cha·enga",
+        "future": "cha·gen",
+        "command": "cha·bo",
+        "past_question": "cha·ama?",
+        "negation": "cha·ja"
+      },
+      "example": "Anga mi cha·a = I ate rice"
+    },
+    "kari": {
+      "garo": "kari",
+      "english": "salt",
+      "pos": "noun",
+      "example": "Kari on·bo = give me salt"
+    },
+    "bre·na": {
+      "garo": "bre·na",
+      "english": "to buy / to purchase",
+      "pos": "verb",
+      "tenses": {
+        "past": "bre·a",
+        "continuous": "bre·enga",
+        "future": "bre·gen",
+        "command": "bre·bo",
+        "past_question": "bre·ama?"
+      },
+      "example": "Anga mi bre·a = I bought rice"
     }
   },
   "travel_and_transport": {
@@ -3450,6 +3899,12 @@
     "station / stop": {
       "garo": "Nengtakani Biap",
       "hindi": "स्टेशन / स्टॉप"
+    },
+    "gari": {
+      "garo": "gari",
+      "english": "vehicle / car / cart",
+      "pos": "noun",
+      "example": "Gari-ko sal·na = to drive a vehicle"
     }
   },
   "social_people": {
@@ -3548,6 +4003,36 @@
     "village chief": {
       "garo": "Nokma",
       "hindi": "गाँव का मुखिया"
+    },
+    "younger brother": {
+      "garo": "Jong"
+    },
+    "wise person / intelligent person": {
+      "garo": "Gisik·gnigipa"
+    },
+    "man / male (adult)": {
+      "garo": "Me·asa"
+    },
+    "woman / female": {
+      "garo": "Me·chik"
+    },
+    "me·asa": {
+      "garo": "me·asa",
+      "english": "man / male (adult)",
+      "pos": "noun",
+      "example": "Me·asa sak·sa = one man"
+    },
+    "me·chik": {
+      "garo": "me·chik",
+      "english": "woman / female",
+      "pos": "noun",
+      "example": "Me·chik sak·gni = two women"
+    },
+    "gisik·gnigipa": {
+      "garo": "gisik·gnigipa",
+      "english": "wise person / intelligent person",
+      "pos": "noun",
+      "example": "Gisik·gnigipa manderang = wise people"
     }
   },
   "materials_and_textures": {
@@ -3630,6 +4115,19 @@
     "hard": {
       "garo": "Raka",
       "hindi": "कठोर / कड़ा"
+    },
+    "jrim·a": {
+      "garo": "jrim·a",
+      "english": "heavy / weighty",
+      "pos": "adjective",
+      "comparative": "jrim·bata",
+      "example": "Ia jrim·a ong·a = This is heavy"
+    },
+    "jrim·bea": {
+      "garo": "jrim·bea",
+      "english": "very heavy",
+      "pos": "adjective",
+      "example": "Ia jrim·bea = This is very heavy"
     }
   },
   "religious_and_spiritual": {
@@ -3928,6 +4426,39 @@
     "shadow": {
       "garo": "Jagring",
       "hindi": "परछाईं"
+    },
+    "mind / spirit / heart (metaphorical)": {
+      "garo": "Gisik"
+    },
+    "deed / action / doing": {
+      "garo": "Dak·ani"
+    },
+    "language / speech / mouth": {
+      "garo": "Ku·sik"
+    },
+    "dong·a": {
+      "garo": "dong·a",
+      "english": "exists / is present / have",
+      "pos": "verb",
+      "example": "Donga = it is there / I have"
+    },
+    "dong·ja": {
+      "garo": "dong·ja",
+      "english": "not there / absent / don't have",
+      "pos": "verb",
+      "example": "Dong·ja = it is not there"
+    },
+    "dak·ani": {
+      "garo": "dak·ani",
+      "english": "deed / action / doing",
+      "pos": "noun",
+      "example": "Dak·ani dongja = nothing to do"
+    },
+    "gisik": {
+      "garo": "gisik",
+      "english": "mind / spirit / heart (metaphorical)",
+      "pos": "noun",
+      "example": "Gisik dong·a = to have intelligence/focus"
     }
   },
   "quantity_and_degree": {
@@ -4572,6 +5103,84 @@
     "to throw": {
       "garo": "Gal-a",
       "hindi": "फेंकना"
+    },
+    "dong·dik·na": {
+      "garo": "dong·dik·na",
+      "english": "to stop / to pause",
+      "pos": "verb",
+      "tenses": {
+        "past": "dong·dik·a",
+        "future": "dong·dik·gen",
+        "command": "dong·dik·bo"
+      },
+      "example": "Dong·dik·bo = Stop"
+    },
+    "ba·na": {
+      "garo": "ba·na",
+      "english": "to carry (usually a child on the back)",
+      "pos": "verb",
+      "tenses": {
+        "past": "ba·a",
+        "continuous": "ba·enga",
+        "future": "ba·gen",
+        "command": "ba·bo"
+      },
+      "example": "Bi·sako ba·na = to carry the child on the back"
+    },
+    "den·na": {
+      "garo": "den·na",
+      "english": "to cut / to chop",
+      "pos": "verb",
+      "tenses": {
+        "past": "den·a",
+        "continuous": "den·enga",
+        "future": "den·gen",
+        "command": "den·bo"
+      },
+      "example": "Bol den·a = cut the wood"
+    },
+    "cho·na": {
+      "garo": "cho·na",
+      "english": "to dig / to excavate",
+      "pos": "verb",
+      "tenses": {
+        "past": "cho·a",
+        "continuous": "cho·enga",
+        "future": "cho·gen",
+        "command": "cho·bo"
+      },
+      "example": "A·ako cho·a = dug the earth"
+    },
+    "bil·na": {
+      "garo": "bil·na",
+      "english": "to fly",
+      "pos": "verb",
+      "tenses": {
+        "past": "bil·a",
+        "future": "bil·gen"
+      },
+      "example": "Do·o bil·enga = the bird is flying"
+    },
+    "dak·chak·na": {
+      "garo": "dak·chak·na",
+      "english": "to help / to assist",
+      "pos": "verb",
+      "tenses": {
+        "past": "dak·chak·a",
+        "future": "dak·chak·gen",
+        "command": "dak·chak·bo"
+      },
+      "example": "Angako dak·chakbo = Help me"
+    },
+    "gong·grak·na": {
+      "garo": "gong·grak·na",
+      "english": "to be quick / to be active",
+      "pos": "verb",
+      "tenses": {
+        "past": "gong·grak·a",
+        "future": "gong·grak·gen"
+      },
+      "example": "Gong·grak·a = was quick"
     }
   }
 }
