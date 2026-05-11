@@ -1,4 +1,5 @@
 import garoDictionary from '../garo_dictionary.json'
+import conversationPatterns from './data/dictionary/conversation_patterns.json'
 
 class GaroTranslationEngine {
 
@@ -150,10 +151,6 @@ class GaroTranslationEngine {
       "let's go eat":
         "Hai, mi cha·na re·na",
 
-      // =================================================
-      // TRUE GARO SENTENCES
-      // =================================================
-
       'drink water':
         'Chi ringbo',
 
@@ -222,7 +219,70 @@ class GaroTranslationEngine {
     ]
 
     this.buildIndexes()
+    this.buildConversationPatterns()
     this.buildPhraseMap()
+  }
+
+  // =====================================================
+  // NORMALIZE
+  // =====================================================
+
+  normalize(text) {
+
+    if (!text) return ''
+
+    return String(text)
+      .normalize('NFKC')
+      .toLowerCase()
+      .replace(/[.,!?‘’']/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+
+  // =====================================================
+  // BUILD CONVERSATION PATTERNS
+  // =====================================================
+
+  buildConversationPatterns() {
+
+    try {
+
+      this.conversationMap = {}
+
+      Object.entries(conversationPatterns)
+
+        .forEach(([english, value]) => {
+
+          if (
+            !english ||
+            String(english).startsWith('_')
+          ) {
+            return
+          }
+
+          if (
+            typeof value !== 'object' ||
+            !value?.garo
+          ) {
+            return
+          }
+
+          const normalized =
+            this.normalize(english)
+
+          this.conversationMap[normalized] =
+            value.garo
+        })
+
+    } catch (error) {
+
+      console.error(
+        'Conversation pattern build failed:',
+        error
+      )
+
+      this.conversationMap = {}
+    }
   }
 
   // =====================================================
@@ -236,7 +296,9 @@ class GaroTranslationEngine {
       this.phraseMap = {}
 
       Object.entries(this.phrases).forEach(([english, garo]) => {
-        const normalizedEnglish = this.normalize(english)
+
+        const normalizedEnglish =
+          this.normalize(english)
 
         if (!normalizedEnglish || !garo) {
           return
@@ -246,14 +308,18 @@ class GaroTranslationEngine {
       })
 
       Object.entries(this.englishToGaro).forEach(([english, garo]) => {
+
         if (!english || !garo) {
           return
         }
 
-        const normalizedEnglish = this.normalize(english)
+        const normalizedEnglish =
+          this.normalize(english)
 
         if (normalizedEnglish.includes(' ')) {
-          this.phraseMap[normalizedEnglish] = garo
+
+          this.phraseMap[normalizedEnglish] =
+            garo
         }
       })
 
@@ -268,56 +334,18 @@ class GaroTranslationEngine {
 
     } catch (error) {
 
-      console.error('Phrase map build failed:', error)
+      console.error(
+        'Phrase map build failed:',
+        error
+      )
+
       this.phraseMap = { ...this.phrases }
       this.maxPhraseLength = 1
     }
   }
 
   // =====================================================
-  // TRANSLATE WITH PHRASES
-  // =====================================================
-
-  translateWithPhrases(words = []) {
-
-    const result = []
-    let index = 0
-
-    while (index < words.length) {
-
-      let matched = false
-      const maxLen = Math.min(
-        this.maxPhraseLength,
-        words.length - index
-      )
-
-      for (let length = maxLen; length > 0; length--) {
-        const phrase = words
-          .slice(index, index + length)
-          .join(' ')
-
-        const garo = this.phraseMap[phrase]
-
-        if (garo) {
-          result.push(garo)
-          index += length
-          matched = true
-          break
-        }
-      }
-
-      if (!matched) {
-        result.push(this.translateWord(words[index]))
-        index += 1
-      }
-    }
-
-    return result.join(' ').trim()
-  }
-
-  // =====================================================
   // BUILD INDEXES
-  // =====================================================
   // =====================================================
 
   buildIndexes() {
@@ -389,22 +417,6 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
-  // NORMALIZE
-  // =====================================================
-
-  normalize(text) {
-
-    if (!text) return ''
-
-    return String(text)
-      .normalize('NFKC')
-      .toLowerCase()
-      .replace(/[.,!?‘’']/g, '')
-      .replace(/\s+/g, ' ')
-      .trim()
-  }
-
-  // =====================================================
   // TOKENIZE
   // =====================================================
 
@@ -413,128 +425,6 @@ class GaroTranslationEngine {
     return this.normalize(text)
       .split(' ')
       .filter(Boolean)
-  }
-
-  // =====================================================
-  // DETECT TENSE
-  // =====================================================
-
-  detectTense(words = []) {
-
-    if (
-      words.includes('am') ||
-      words.includes('is') ||
-      words.includes('are')
-    ) {
-      return 'continuous'
-    }
-
-    if (
-      words.includes('have') ||
-      words.includes('has')
-    ) {
-      return 'perfect'
-    }
-
-    if (
-      words.includes('was') ||
-      words.includes('were')
-    ) {
-      return 'past'
-    }
-
-    if (
-      words.includes('will')
-    ) {
-      return 'future'
-    }
-
-    return 'present'
-  }
-
-  // =====================================================
-  // DETECT VERB
-  // =====================================================
-
-  detectVerb(word = '') {
-
-    if (this.verbs[word]) {
-      return word
-    }
-
-    // eating -> eat
-
-    if (word.endsWith('ing')) {
-
-      let base =
-        word.slice(0, -3)
-
-      if (base.endsWith('nn')) {
-        base = base.slice(0, -1)
-      }
-
-      if (base.endsWith('tt')) {
-        base = base.slice(0, -1)
-      }
-
-      if (base.endsWith('mm')) {
-        base = base.slice(0, -1)
-      }
-
-      if (base === 'com') {
-        base = 'come'
-      }
-
-      if (this.verbs[base]) {
-        return base
-      }
-    }
-
-    // played -> play
-
-    if (word.endsWith('ed')) {
-
-      const base =
-        word.slice(0, -2)
-
-      if (this.verbs[base]) {
-        return base
-      }
-    }
-
-    return null
-  }
-
-  // =====================================================
-  // BUILD GARO VERB
-  // =====================================================
-
-  buildVerb(verb, tense) {
-
-    const root =
-      this.verbs[verb]
-
-    if (!root) {
-      return verb
-    }
-
-    if (tense === 'continuous') {
-      return root + 'enga'
-    }
-
-    if (tense === 'perfect') {
-      return root + 'manjok'
-    }
-
-    if (tense === 'past') {
-      return root + 'aha'
-    }
-
-    if (tense === 'future') {
-      return root + 'gen'
-    }
-
-    return root + 'bo'
   }
 
   // =====================================================
@@ -556,70 +446,55 @@ class GaroTranslationEngine {
   }
 
   // =====================================================
-  // BUILD TRUE GARO SENTENCE
+  // TRANSLATE WITH PHRASES
   // =====================================================
 
-  buildSentence(words = []) {
+  translateWithPhrases(words = []) {
 
-    let subject = ''
-    let objects = []
-    let verb = ''
+    const result = []
+    let index = 0
 
-    const tense =
-      this.detectTense(words)
+    while (index < words.length) {
 
-    for (const word of words) {
+      let matched = false
 
-      if (
-        this.helperWords.includes(word)
-      ) {
-        continue
-      }
-
-      // SUBJECT
-
-      if (this.pronouns[word]) {
-
-        subject =
-          this.pronouns[word]
-
-        continue
-      }
-
-      // VERB
-
-      const foundVerb =
-        this.detectVerb(word)
-
-      if (foundVerb) {
-
-        verb =
-          this.buildVerb(
-            foundVerb,
-            tense
-          )
-
-        continue
-      }
-
-      // OBJECT
-
-      objects.push(
-        this.translateWord(word)
+      const maxLen = Math.min(
+        this.maxPhraseLength,
+        words.length - index
       )
+
+      for (let length = maxLen; length > 0; length--) {
+
+        const phrase = words
+          .slice(index, index + length)
+          .join(' ')
+
+        const garo =
+          this.phraseMap[phrase]
+
+        if (garo) {
+
+          result.push(garo)
+
+          index += length
+
+          matched = true
+
+          break
+        }
+      }
+
+      if (!matched) {
+
+        result.push(
+          this.translateWord(words[index])
+        )
+
+        index += 1
+      }
     }
 
-    return [
-
-      subject,
-      ...objects,
-      verb,
-
-    ]
-      .filter(Boolean)
-      .join(' ')
-      .replace(/\s+/g, ' ')
-      .trim()
+    return result.join(' ').trim()
   }
 
   // =====================================================
@@ -637,23 +512,30 @@ class GaroTranslationEngine {
         return ''
       }
 
-      // EXACT PHRASE OR KNOWN PHRASE MAP
+      // =================================================
+      // CONVERSATION PATTERNS
+      // =================================================
 
-      if (this.phraseMap?.[normalized]) {
+      if (
+        this.conversationMap?.[normalized]
+      ) {
+
+        return this.conversationMap[normalized]
+      }
+
+      // =================================================
+      // EXACT PHRASES
+      // =================================================
+
+      if (
+        this.phraseMap?.[normalized]
+      ) {
+
         return this.phraseMap[normalized]
       }
 
       const words =
         this.tokenize(normalized)
-
-      const hasVerb =
-        words.some(word =>
-          Boolean(this.detectVerb(word))
-        )
-
-      if (hasVerb) {
-        return this.buildSentence(words)
-      }
 
       return this.translateWithPhrases(words)
 
@@ -667,230 +549,6 @@ class GaroTranslationEngine {
       return ''
     }
   }
-
-  // =====================================================
-  // TRANSLATE SENTENCE
-  // =====================================================
-
-  translateSentence(text = '') {
-
-    const words =
-      this.tokenize(text)
-
-    return {
-
-      original: text,
-
-      translated:
-        this.translate(text),
-
-      breakdown: words.map(word => ({
-
-        english: word,
-
-        garo:
-          this.translateWord(word),
-
-        category: 'general',
-      })),
-
-      language: 'garo',
-
-      tokens: words,
-
-      morphology: [],
-
-      classifiers: [],
-
-      numbers: [],
-
-      tenses: [
-        this.detectTense(words)
-      ],
-    }
-  }
-
-  // =====================================================
-  // WORD BY WORD
-  // =====================================================
-
-  translateSentenceWordByWord(text = '') {
-
-    const words =
-      this.tokenize(text)
-
-    return {
-
-      original: text,
-
-      translated:
-        words
-          .map(word =>
-            this.translateWord(word)
-          )
-          .join(' '),
-
-      breakdown: [],
-
-      tokens: words,
-
-      morphology: [],
-
-      classifiers: [],
-
-      numbers: [],
-
-      tenses: [],
-    }
-  }
-
-  // =====================================================
-  // ANALYZE GRAMMAR
-  // =====================================================
-
-  analyzeGrammar(text = '') {
-
-    const words =
-      this.tokenize(text)
-
-    return {
-
-      original: text,
-
-      normalized:
-        this.normalize(text),
-
-      translatedPreview:
-        this.translate(text),
-
-      structure: 'SOV',
-
-      grammar:
-        'True Garo grammar engine',
-
-      tense:
-        this.detectTense(words),
-
-      morphology: [],
-
-      classifiers: [],
-
-      numbers: [],
-
-      tokens: words,
-    }
-  }
-
-  // =====================================================
-  // SEARCH VOCAB
-  // =====================================================
-
-  searchVocabulary(query = '') {
-
-    const q =
-      this.normalize(query)
-
-    return Object.keys(
-      this.englishToGaro
-    )
-
-      .filter(word =>
-        word.includes(q)
-      )
-
-      .map(word => ({
-
-        english: word,
-
-        garo:
-          this.englishToGaro[word],
-      }))
-  }
-
-  // =====================================================
-  // GET CATEGORIES
-  // =====================================================
-
-  getAllCategories() {
-
-    return Object.keys(
-      this.dictionary || {}
-    )
-  }
-
-  // =====================================================
-  // FIXED CATEGORY VOCAB
-  // =====================================================
-
-  getCategoryVocabulary(category) {
-
-    try {
-
-      const section =
-        this.dictionary?.[category]
-
-      if (
-        !section ||
-        typeof section !== 'object' ||
-        Array.isArray(section)
-      ) {
-        return []
-      }
-
-      const result =
-        Object.entries(section)
-
-          .filter(([key]) =>
-            key &&
-            !String(key).startsWith('_')
-          )
-
-          .map(([english, value]) => {
-
-            let garo = ''
-
-            if (
-              typeof value === 'object' &&
-              value !== null
-            ) {
-
-              garo =
-                value.garo || ''
-
-            } else {
-
-              garo =
-                String(value || '')
-            }
-
-            return {
-
-              english:
-                String(english),
-
-              garo:
-                String(garo),
-
-              category:
-                String(category),
-            }
-          })
-
-      return Array.isArray(result)
-        ? result
-        : []
-
-    } catch (error) {
-
-      console.error(
-        'Category load failed:',
-        error
-      )
-
-      return []
-    }
-  }
 }
 
 export default new GaroTranslationEngine()
-
