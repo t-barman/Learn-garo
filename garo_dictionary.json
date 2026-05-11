@@ -24,8 +24,7 @@ const garoDictionary = {
     },
 
     rakka_rule: {
-      description:
-        'The rakka (·) always stays attached to the root word'
+      description: 'The rakka (·) always stays attached to the root word'
     },
 
     suffixes: {
@@ -47,17 +46,14 @@ const garoDictionary = {
   },
 
   pronouns: {
-
     "i": {
       "garo": "Anga",
       "hindi": "मैं"
     },
-
     "you": {
       "garo": "Na·a",
       "hindi": "तुम"
     },
-
     "we": {
       "garo": "An·ching",
       "hindi": "हम"
@@ -65,22 +61,18 @@ const garoDictionary = {
   },
 
   phrases: {
-
     "hello": {
       "garo": "Salam",
       "hindi": "नमस्ते"
     },
-
     "thank_you": {
       "garo": "Mittela",
       "hindi": "धन्यवाद"
     },
-
     "how_are_you": {
       "garo": "Na·a namengama?",
       "hindi": "आप कैसे हैं?"
     },
-
     "i_am_fine": {
       "garo": "Anga namenga",
       "hindi": "मैं ठीक हूँ"
@@ -88,32 +80,26 @@ const garoDictionary = {
   },
 
   verbs: {
-
     "eat": {
       "garo": "cha·",
       "hindi": "खाना"
     },
-
     "drink": {
       "garo": "ring",
       "hindi": "पीना"
     },
-
     "go": {
       "garo": "re·ang",
       "hindi": "जाना"
     },
-
     "come": {
       "garo": "re·ba",
       "hindi": "आना"
     },
-
     "work": {
       "garo": "dak",
       "hindi": "काम करना"
     },
-
     "speak": {
       "garo": "a-gan",
       "hindi": "बोलना"
@@ -121,34 +107,27 @@ const garoDictionary = {
   },
 
   nature_terrain: {
-
     "_classifier": "Ge",
-
     "earth": {
       "garo": "A'a",
       "hindi": "धरती"
     },
-
     "mountain": {
       "garo": "A'bri",
       "hindi": "पहाड़"
     },
-
     "river": {
       "garo": "Chibima",
       "hindi": "नदी"
     },
-
     "forest": {
       "garo": "Buring",
       "hindi": "जंगल"
     },
-
     "sun": {
       "garo": "Sal",
       "hindi": "सूरज"
     },
-
     "moon": {
       "garo": "Jajong",
       "hindi": "चाँद"
@@ -156,14 +135,11 @@ const garoDictionary = {
   },
 
   farming_jhum: {
-
     "_classifier": "Ge",
-
     "field": {
       "garo": "A'ba",
       "hindi": "खेत"
     },
-
     "cultivate": {
       "garo": "A'a gam-na",
       "hindi": "खेती करना"
@@ -171,19 +147,15 @@ const garoDictionary = {
   },
 
   animals: {
-
     "_classifier": "Mang",
-
     "dog": {
       "garo": "Achak",
       "hindi": "कुत्ता"
     },
-
     "cat": {
       "garo": "Menggo",
       "hindi": "बिल्ली"
     },
-
     "elephant": {
       "garo": "Mong",
       "hindi": "हाथी"
@@ -191,17 +163,14 @@ const garoDictionary = {
   },
 
   food: {
-
     "rice": {
       "garo": "Mi",
       "hindi": "चावल"
     },
-
     "water": {
       "garo": "Chi",
       "hindi": "पानी"
     },
-
     "banana": {
       "garo": "Te·rik",
       "hindi": "केला"
@@ -209,17 +178,14 @@ const garoDictionary = {
   },
 
   household: {
-
     "house": {
       "garo": "Nok",
       "hindi": "घर"
     },
-
     "door": {
       "garo": "Do·ga",
       "hindi": "दरवाज़ा"
     },
-
     "book": {
       "garo": "Ki·tap",
       "hindi": "किताब"
@@ -227,12 +193,10 @@ const garoDictionary = {
   },
 
   colors: {
-
     "red": {
       "garo": "Gitchak",
       "hindi": "लाल"
     },
-
     "green": {
       "garo": "Tangsek",
       "hindi": "हरा"
@@ -240,12 +204,10 @@ const garoDictionary = {
   },
 
   numbers: {
-
     "one": {
       "garo": "Sa",
       "hindi": "एक"
     },
-
     "two": {
       "garo": "Gni",
       "hindi": "दो"
