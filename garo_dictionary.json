@@ -390,7 +390,7 @@
       "hindi": "मेरा नाम ... है"
     },
     "where are you going?": {
-      "garo": "Na·a bano re·angenga?",
+      "garo": "Na·a bachi re·angenga?",
       "hindi": "आप कहाँ जा रहे हैं?"
     },
     "good morning": {
@@ -905,7 +905,7 @@
       },
       {
         "english": "The elephant is big",
-        "garo": "Mong dal·a",
+        "garo": "mongma dal·a",
         "hindi": "हाथी बड़ा है"
       },
       {
@@ -936,7 +936,7 @@
       "hindi": "गाय"
     },
     "elephant": {
-      "garo": "Mong",
+      "garo": "mongma",
       "hindi": "हाथी"
     },
     "tiger": {
@@ -1874,7 +1874,7 @@
       "garo": "Dak·ja"
     },
     "to come": {
-      "garo": "Re·ba·na"
+      "garo": "re·ba·bo"
     },
     "to go": {
       "garo": "Re·ang·na"
@@ -1921,8 +1921,8 @@
     "to cut / to chop": {
       "garo": "Den·na"
     },
-    "re·ba·na": {
-      "garo": "re·ba·na",
+    "re·ba·bo": {
+      "garo": "re·ba·bo",
       "english": "to come",
       "pos": "verb",
       "tenses": {
@@ -3039,7 +3039,7 @@
       "hindi": "सोमवार"
     },
     "tuesday": {
-      "garo": "Mongal ari",
+      "garo": "mongmaal ari",
       "hindi": "मंगलवार"
     },
     "wednesday": {
@@ -4227,7 +4227,7 @@
       },
       {
         "english": "He is a pastor",
-        "garo": "Ua pamong sak-sa",
+        "garo": "Ua pamongma sak-sa",
         "hindi": "वह पादरी है"
       },
       {
@@ -4294,7 +4294,7 @@
       "hindi": "पवित्र"
     },
     "pastor": {
-      "garo": "Pamong",
+      "garo": "Pamongma",
       "hindi": "पादरी"
     },
     "priest": {
@@ -5308,25 +5308,25 @@
       },
       "examples": [
         {
-          "sentence": "Ana re·ang·a",
+          "sentence": "chinga re·ang·a",
           "english": "He went"
         },
         {
-          "sentence": "An·ching re·ang·enga",
+          "sentence": "chinga re·ang·enga",
           "english": "We are going"
         },
         {
-          "sentence": "Na·a bano re·angenga?",
+          "sentence": "Na·a bachi re·angenga?",
           "english": "Where are you going?"
         }
       ]
     },
-    "come (re·ba·na) - motion verb": {
-      "infinitive": "re·ba·na",
-      "garo": "re·ba·na",
+    "come (re·ba·bo) - motion verb": {
+      "infinitive": "re·ba·bo",
+      "garo": "re·ba·bo",
       "english": "to come (motion)",
       "forms": {
-        "simple": "re·ba·na",
+        "simple": "re·ba·bo",
         "continuous": "re·ba·enga",
         "past": "re·ba·a",
         "future": "re·ba·gen",
@@ -5394,7 +5394,7 @@
           "english": "He gives me a book"
         },
         {
-          "sentence": "On·bo nangna!",
+          "sentence": "On·a on.bo",
           "english": "Give it to him!"
         }
       ]
@@ -5438,7 +5438,7 @@
       "english": "Form questions with particles or question words",
       "examples": [
         "Ia maia? = What is this?",
-        "Na·a bano re·angenga? = Where are you going?",
+        "Na·a bachi re·angenga? = Where are you going?",
         "Ua sawa? = Who is he?"
       ]
     },
@@ -6065,7 +6065,7 @@
       "pattern": "[Subject] [Object] [Verb] + [?]",
       "examples": [
         {
-          "sentence": "Na·a bano re·angenga?",
+          "sentence": "Na·a bachi re·angenga?",
           "english": "Where are you going?"
         },
         {
