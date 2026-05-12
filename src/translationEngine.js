@@ -1,7 +1,7 @@
 import garoDictionary from '../garo_dictionary.json'
 import conversationPatterns from './data/dictionary/conversation_patterns.json'
-import { countNoun } from './garo_classifier'
-import { analyzeSentence } from './gemini'
+import { countNoun } from './garo_classifier.js'
+import { analyzeSentence } from './gemini.js'
 
 class GaroTranslationEngine {
 
